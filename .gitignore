@@ -1,0 +1,30 @@
+
+### UI
+demo-ui/build/
+demo-ui/.gradle/
+demo-ui/dist/
+demo-ui/node_modules
+demo-ui/tmp
+demo-ui/out-tsc
+# Only exists if Bazel was run
+demo-ui/bazel-out
+
+
+
+### BACKEND
+spring-demo-api/HELP.md
+.gradle
+spring-demo-api/build/
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/main/**
+!**/src/test/**
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+out/
+
+### VS Code ###
+.vscode/

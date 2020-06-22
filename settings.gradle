@@ -1,0 +1,3 @@
+rootProject.name = 'SimpleWebApp'
+
+include 'spring-demo-api', 'demo-ui'
