@@ -28,3 +28,7 @@ jar.dependsOn 'npm_run_build'
 jar {
   from 'dist/demo-ui' into 'static'
 }
+
+clean {
+  delete 'dist'
+}

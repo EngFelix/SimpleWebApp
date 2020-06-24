@@ -1,7 +1,8 @@
 package de.enghofers.projects.springdemoapi;
 
 import de.enghofers.projects.springdemoapi.domain.User;
-import de.enghofers.projects.springdemoapi.repositories.UserRepository;
+import de.enghofers.projects.springdemoapi.repositories.IUserRepository;
+import de.enghofers.projects.springdemoapi.services.IUserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -21,16 +22,22 @@ public class SpringDemoApiApplication {
 	}
 
 	@Bean
-	public CommandLineRunner demo(UserRepository userRepository) {
+	public CommandLineRunner demo(IUserService userService) {
 		return args -> {
 			// Save Users
-			userRepository.save(new User("FirstName", "LastNameTest", LocalDate.of(1992, 10, 21)));
+			User user = new User("FirstName", "LastNameTest", LocalDate.of(1992, 10, 21));
+
+//			log.info("new User");
+//			log.info(user.toString());
+//			user = userService.createOrUpdateUser(user);
+//			log.info("new User after save");
+//			log.info(user.toString());
 
 			// Find Users
 			log.info("Users found with findAll():");
 			log.info("-------------------------------");
-			for (User user : userRepository.findAll()) {
-				log.info(user.toString());
+			for (User usr : userService.getAllUsers()) {
+				log.info(usr.toString());
 			}
 			log.info("");
 		};
