@@ -1,4 +1,4 @@
-import {UserComponent} from "../user/user.component";
+import {UserComponent} from "./user.component";
 
 export const UserRoutes = [
   {path: '', component: UserComponent}
