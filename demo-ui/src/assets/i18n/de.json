@@ -1,0 +1,19 @@
+{
+  "main" : {
+    "home" : {
+      "welcome" : "Willkommen bei meinem multi-Sprachen-Projekt!"
+    },
+    "nav" : {
+      "lang" : {
+        "choose" : "Sprache auswählen"
+      }
+    }
+  },
+
+
+  "user" : {
+    "table" : {
+      "title" : "Benutzerübersicht"
+    }
+  }
+}

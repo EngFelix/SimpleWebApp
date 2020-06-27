@@ -1,0 +1,8 @@
+<div class="input-group">
+  <div class="input-group-prepend">
+    <label class="input-group-text" for="langSelect">{{ 'main.nav.lang.choose' | translate}}</label>
+  </div>
+  <select #langSelect (change)="translate.use(langSelect.value)" class="custom-select" id="langSelect">
+    <option *ngFor="let lang of translate.getLangs()" [value]="lang">{{lang}}</option>
+  </select>
+</div>

@@ -1,0 +1,19 @@
+{
+  "main" : {
+    "home" : {
+      "welcome" : "Welcome to my multi-language project!"
+    },
+    "nav" : {
+      "lang" : {
+        "choose" : "Choose Language"
+      }
+    }
+  },
+
+
+  "user" : {
+    "table" : {
+      "title" : "User Overview"
+    }
+  }
+}

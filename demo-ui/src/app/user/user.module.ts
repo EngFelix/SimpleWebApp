@@ -5,6 +5,7 @@ import {UserRoutes} from './user.routing';
 import {HttpClientModule} from '@angular/common/http';
 import {UserComponent} from './user.component';
 import {DataTableComponent} from '../utility/data-table.component';
+import {TranslateModule} from '@ngx-translate/core';
 
 
 
@@ -13,7 +14,8 @@ import {DataTableComponent} from '../utility/data-table.component';
   imports: [
     CommonModule,
     RouterModule.forChild(UserRoutes),
-    HttpClientModule
+    HttpClientModule,
+    TranslateModule
   ],
   bootstrap: [UserComponent]
 })

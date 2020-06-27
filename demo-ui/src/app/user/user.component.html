@@ -1,4 +1,4 @@
-<p>User Table</p>
+<p>{{ 'user.table.title' | translate }}</p>
 <data-table [table-columns]="[{'colName':'firstName'}, {'colName':'lastName'}]" [table-data]="UserModels" (table-selected)="SelectUser($event)"></data-table>
 this should lazy load the add-user form component to the page -><a type="button" class="btn btn-primary">Add User</a>
 <router-outlet></router-outlet>
