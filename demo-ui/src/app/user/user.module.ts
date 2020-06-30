@@ -6,6 +6,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {UserComponent} from './user.component';
 import {DataTableComponent} from '../utility/data-table.component';
 import {TranslateModule} from '@ngx-translate/core';
+import {UserService, UserServiceImpl} from '../service/user.service';
 
 
 
@@ -17,6 +18,10 @@ import {TranslateModule} from '@ngx-translate/core';
     HttpClientModule,
     TranslateModule
   ],
+  providers: [{
+    provide: UserService,
+    useClass: UserServiceImpl
+  }],
   bootstrap: [UserComponent]
 })
 export class UserModule { }

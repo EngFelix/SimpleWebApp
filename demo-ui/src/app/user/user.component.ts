@@ -1,36 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {User} from '../model/user.model';
-import {HttpClient} from '@angular/common/http';
+import {IUser, UserService} from '../service/user.service';
+import {Observable} from 'rxjs';
 
 @Component({
   templateUrl: './user.component.html'
 })
 export class UserComponent implements OnInit {
-  UserModel: User = new User();
-  UserModels: Array<User> = new Array<User>();
+  users$: Observable<Array<IUser>>;
+  userModel: User = new User();
 
 
-  constructor(public httpClient:HttpClient) { }
+  constructor(private userService: UserService) {
+  }
 
   ngOnInit(): void {
-    this.GetAllUsers();
-  }
-
-  GetAllUsers() {
-    this.httpClient.get('http://localhost:8080/api/users/').subscribe(res => this.onGetAllSuccess(res), error => this.onGetAllError(error))
-  }
-
-  onGetAllSuccess(res) {
-    this.UserModels = res;
-    this.UserModel = new User();
-  }
-
-  onGetAllError(error) {
-    console.debug(error)
+    this.users$  = this.userService.users$;
   }
 
   SelectUser(_selectedUser: User) {
-    this.UserModel = _selectedUser;
+    this.userModel = _selectedUser;
   }
 
 }
