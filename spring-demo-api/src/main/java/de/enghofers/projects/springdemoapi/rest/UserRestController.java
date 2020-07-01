@@ -38,4 +38,10 @@ public class UserRestController {
     public User updateUser(@RequestBody User user) {
         return userService.createOrUpdateUser(user);
     }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @DeleteMapping("api/users/{id}")
+    public void deleteUser(@PathVariable Long id) {
+        userService.deleteUser(id);
+    }
 }

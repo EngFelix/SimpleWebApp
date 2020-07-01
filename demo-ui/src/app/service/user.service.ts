@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
-import {BehaviorSubject, Observable, throwError} from 'rxjs';
+import {BehaviorSubject, Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
-import {error} from '@angular/compiler/src/util';
 
 export interface IUser {
   id: number;
@@ -34,7 +33,6 @@ export class UserServiceImpl implements UserService {
 
   constructor(private httpClient: HttpClient) {
     this.loadAll();
-    this.deleteUser({id: 10000, birthDate: new Date(), lastName: '', firstName: ''});
   }
 
   private loadAll(): void {
@@ -72,11 +70,11 @@ export class UserServiceImpl implements UserService {
   deleteUser(userToDelete: IUser): void {
     const index = this._users.getValue().findIndex(user => user.id == userToDelete.id);
     if (index < 0) {
-      throwError(error('No User with that id in the data store!'));
+      console.log('UserService: ERROR: No User with that id in the data store!');
     }
-    this.httpClient.delete<IUser>(this.apiUrl + '/users/' + userToDelete.id)
+    this.httpClient.delete(this.apiUrl + '/users/' + userToDelete.id)
       .subscribe(
-        response => this._users.next(this._users.getValue().splice(index, 1)),
+        () => this._users.next(this._users.getValue().splice(index, 1)),
         err => console.log('UserService: could not delete user with id ' + userToDelete.id, err));
   }
 
