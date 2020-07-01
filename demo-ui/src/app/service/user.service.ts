@@ -51,9 +51,15 @@ export class UserServiceImpl implements UserService{
   }
 
   updateUser(userId: number, userChanges: Partial<IUser>): void {
+    const updatedUsers  = [...this._users.getValue()];
+    const index = this._users.getValue().findIndex(user => user.id == userChanges.id);
+
     this.httpClient.put<IUser>(this.baseUrl + '/users', userChanges)
       .subscribe(
-        data => this._users.next([...this._users.getValue(), data]),
+        data => {
+          updatedUsers[index] = data;
+          this._users.next(updatedUsers);
+        },
         error => console.log('UserService: error creating user', error)
       );
   }
