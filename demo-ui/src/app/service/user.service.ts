@@ -56,8 +56,9 @@ export class UserServiceImpl implements UserService {
   updateUser(userId: number, userChanges: Partial<IUser>): void {
     const updatedUsers = [...this._users.getValue()];
     const index = this._users.getValue().findIndex(user => user.id == userChanges.id);
+    const updatedUser: IUser = {...updatedUsers[index],...userChanges};
 
-    this.httpClient.put<IUser>(this.apiUrl + '/users', userChanges)
+    this.httpClient.put<IUser>(this.apiUrl + '/users', updatedUser)
       .subscribe(
         data => {
           updatedUsers[index] = data;

@@ -11,12 +11,12 @@
 
   </thead>
   <tbody>
-    <tr *ngFor="let colObj of tableData">
+    <tr *ngFor="let row of tableData">
       <td *ngFor="let col of tableColumns">
-        {{colObj[col.colName]}}
+        {{col.colVal.call(null, row)}}
       </td>
       <td>
-        <a (click)="SelectTable(colObj)" [routerLink]="['/users/Add']">select</a>
+        <a (click)="SelectTable(row)">Select</a>
       </td>
     </tr>
 
