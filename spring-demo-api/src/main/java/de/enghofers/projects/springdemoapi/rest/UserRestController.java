@@ -5,6 +5,7 @@ import de.enghofers.projects.springdemoapi.services.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,9 +23,9 @@ public class UserRestController {
 
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/api/users")
-    public List<User> getAllUsers() {
+    public ResponseEntity<List<User>> getAllUsers() {
         logger.info("Someone is accessing the /api/users endpoint!!");
-        return userService.getAllUsers();
+        return ResponseEntity.ok(userService.getAllUsers());
     }
 
     @CrossOrigin(origins = "http://localhost:4200")

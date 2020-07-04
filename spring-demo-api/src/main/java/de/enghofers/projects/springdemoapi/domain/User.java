@@ -5,6 +5,7 @@ import lombok.*;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
 
 @Entity(name = "User")
@@ -15,19 +16,18 @@ public class User extends BaseEntity {
 
     @Getter
     @Setter
-    @NonNull
     @Column(name = "first_name")
+    @NotBlank(message = "First name is mandatory")
     private String firstName;
 
     @Getter
     @Setter
-    @NonNull
     @Column(name = "last_name")
+    @NotBlank(message = "Last name is mandatory")
     private String lastName;
 
     @Getter
     @Setter
-    @NonNull
     @Column(name = "birth_date")
     private LocalDate birthDate;
 

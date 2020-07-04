@@ -1,19 +1,57 @@
 {
-  "main" : {
-    "home" : {
-      "welcome" : "Willkommen bei meinem multi-Sprachen-Projekt!"
+  "main": {
+    "home": {
+      "welcome": "Willkommen bei meinem multi-Sprachen-Projekt!"
     },
-    "nav" : {
-      "lang" : {
-        "choose" : "Sprache auswählen"
+    "nav": {
+      "lang": {
+        "choose": "Sprache auswählen"
       }
     }
   },
+  "user": {
+    "table": {
+      "title": "Benutzerübersicht"
+    },
+    "form": {
+      "title": {
+        "create": "Benutzer erstellen",
+        "edit": "Benutzer bearbeiten: {firstName}, {lastName}"
+      },
+      "firstName": {
+        "label": "Vorname",
+        "placeholder": "Vornamen eingeben",
+        "help": "Bitte hier den Vornamen eingeben",
+        "error": {
+          "required": "Vorname ist ein Pflichtfeld"
+        }
+      },
+      "lastName": {
+        "label": "Nachname",
+        "placeholder": "Nachnamen eingeben",
+        "help": "Bitte hier den Nachnamen eingeben",
+        "error": {
+          "required": "Nachname ist ein Pflichtfeld"
+        }
 
-
-  "user" : {
-    "table" : {
-      "title" : "Benutzerübersicht"
+      },
+      "email": {
+        "label": "E-Mail",
+        "placeholder": "E-Mail Adresse angeben",
+        "help": "Bitte eine gültige E-Mail Adresse angeben",
+        "error": {
+          "required": "E-Mail ist ein Pflichtfeld",
+          "format": "E-Mail Adresse ist nicht korrekt formatiert"
+        }
+      },
+      "birthDate": {
+        "label": "Geburtsdatum",
+        "placeholder": "Hier klicken um Geburtsdatum auszuwählen",
+        "help": "Bitte Geburtsdatum auswählen",
+        "error": {
+          "format": "Geburtsdatum ist ein Pflichtfeld"
+        }
+      }
     }
   }
 }

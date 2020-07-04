@@ -7,16 +7,25 @@ import {UserComponent} from './user.component';
 import {DataTableComponent} from '../utility/data-table.component';
 import {TranslateModule} from '@ngx-translate/core';
 import {UserService, UserServiceImpl} from '../service/user.service';
+import {AddUserComponent} from './add-user/add-user.component';
+import {ModalModule} from 'ngx-bootstrap/modal';
+import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 
 
 @NgModule({
-  declarations: [UserComponent, DataTableComponent],
+  declarations: [UserComponent, AddUserComponent, DataTableComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(UserRoutes),
     HttpClientModule,
-    TranslateModule
+    TranslateModule,
+    ModalModule.forChild(),
+    BsDatepickerModule.forRoot(),
+    ReactiveFormsModule,
+    FormsModule
+
   ],
   providers: [{
     provide: UserService,

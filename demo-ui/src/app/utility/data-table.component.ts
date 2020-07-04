@@ -2,7 +2,7 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
 
 export interface DataTableColumn<T> {
   colName: string;
-  colVal: (t: T) => string;
+  colVal: (t: T) => string | Component;
 }
 
 @Component({

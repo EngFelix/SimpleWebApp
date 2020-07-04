@@ -1,19 +1,56 @@
 {
-  "main" : {
-    "home" : {
-      "welcome" : "Welcome to my multi-language project!"
+  "main": {
+    "home": {
+      "welcome": "Welcome to my multi-language project!"
     },
-    "nav" : {
-      "lang" : {
-        "choose" : "Choose Language"
+    "nav": {
+      "lang": {
+        "choose": "Choose Language"
       }
     }
   },
-
-
-  "user" : {
-    "table" : {
-      "title" : "User Overview"
+  "user": {
+    "table": {
+      "title": "User Overview"
+    },
+    "form": {
+      "title": {
+        "create": "Create User",
+        "edit": "Edit User: {firstName}, {lastName}"
+      },
+      "firstName": {
+        "label": "First Name",
+        "placeholder": "Enter First Name",
+        "help": "Please enter the first name",
+        "error": {
+          "required": "First Name is mandatory"
+        }
+      },
+      "lastName": {
+        "label": "Last Name",
+        "placeholder": "Enter Last Name",
+        "help": "Please enter the last name",
+        "error": {
+          "required": "Last Name is mandatory"
+        }
+      },
+      "email": {
+        "label": "E-Mail",
+        "placeholder": "Enter E-Mail",
+        "help": "Please enter a valid e-mail address",
+        "error": {
+          "required": "E-Mail is mandatory",
+          "format": "E-Mail is not correctly formatted"
+        }
+      },
+      "birthDate": {
+        "label": "Date of Birth",
+        "placeholder": "Click to select Date of Birth",
+        "help": "Please select date of birth",
+        "error": {
+          "format": "Date of Birth is not formatted properly"
+        }
+      }
     }
   }
 }

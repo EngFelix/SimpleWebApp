@@ -1,7 +1,8 @@
 <p>{{ 'user.table.title' | translate }}</p>
 <ng-container *ngIf="(users$ | async) as users">
-<data-table [table-columns]="userColumns" [table-data]="users" (table-selected)="SelectUser($event)"></data-table>
-this should open up a dialog in the future -> <a type="button" class="btn btn-primary">Add User</a>
+  <data-table [table-columns]="userColumns" [table-data]="users" (table-selected)="SelectUser($event)"></data-table>
+  <div class="form-group">
+    <button type="button" class="btn btn-primary" (click)="openAddUserDialog()">Add User</button>
+  </div>
 </ng-container>
-<router-outlet></router-outlet>
 

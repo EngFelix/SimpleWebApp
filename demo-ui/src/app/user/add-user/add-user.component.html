@@ -1,7 +1,30 @@
-<form>
-  <div class="form-group">
-    <label for="name">Email address</label>
-    <input type="text" class="form-control" id="name" aria-describedby="nameHelp" placeholder="Enter Name">
-    <small id="nameHelp" class="form-text text-muted">Helpy help</small>
-  </div>
-</form>
+<div class="modal-header">
+  <h4 class="modal-title pull-left">{{'user.form.title.create' | translate}}</h4>
+  <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <form [formGroup]="userForm" (ngSubmit)="saveUser(userForm.value)">
+    <div class="form-group">
+      <label for="firstName">{{ 'user.form.firstName.label' | translate }}</label>
+      <input type="text" class="form-control" id="firstName" formControlName="firstName" required aria-describedby="firstNameHelp" placeholder="{{'user.form.firstName.placeholder' | translate}}">
+      <small id="firstNameHelp" class="form-text text-muted">{{'user.form.firstName.help' | translate}}</small>
+    </div>
+    <div class="form-group">
+      <label for="lastName">{{ 'user.form.lastName.label' | translate }}</label>
+      <input type="text" class="form-control" id="lastName" formControlName="lastName" required aria-describedby="lastNameHelp" placeholder="{{'user.form.lastName.placeholder' | translate}}">
+      <small id="lastNameHelp" class="form-text text-muted">{{'user.form.lastName.help' | translate}}</small>
+    </div>
+    <div class="form-group">
+      <label for="name">{{ 'user.form.birthDate.label' | translate }}</label>
+      <input type="text" class="form-control" id="name" formControlName="birthDate" aria-describedby="birthDateHelp" placeholder="{{'user.form.birthDate.placeholder' | translate}}" bsDatepicker>
+      <small id="birthDateHelp" class="form-text text-muted">{{'user.form.birthDate.placeholder' | translate}}</small>
+    </div>
+  </form>
+</div>
+
+<div class="modal-footer">
+  <button type="submit" [disabled]="!userForm.valid" class="btn btn-primary" (click)="saveUser(userForm.value)">{{buttonText}}</button>
+  <button type="button" class="btn btn-default" (click)="modalRef.hide()">Close</button>
+</div>

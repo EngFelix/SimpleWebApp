@@ -5,6 +5,7 @@ import de.enghofers.projects.springdemoapi.repositories.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Service
@@ -18,7 +19,7 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public User createOrUpdateUser(User user) {
+    public User createOrUpdateUser(@Valid User user) {
         return userRepository.save(user);
     }
 
