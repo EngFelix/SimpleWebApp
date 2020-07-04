@@ -4,6 +4,8 @@
       "welcome": "Willkommen bei meinem multi-Sprachen-Projekt!"
     },
     "nav": {
+      "home": "Home",
+      "users": "Benutzer",
       "lang": {
         "choose": "Sprache auswählen"
       }

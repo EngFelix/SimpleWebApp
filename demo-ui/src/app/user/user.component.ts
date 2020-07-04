@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {User} from '../model/user.model';
 import {IUser, UserService} from '../service/user.service';
 import {Observable} from 'rxjs';
-import {DataTableColumn} from '../utility/data-table.component';
+import {DataTableColumn} from '../utility/data-table/data-table.component';
 import {BsModalRef, BsModalService} from 'ngx-bootstrap/modal';
 import {AddUserComponent} from './add-user/add-user.component';
 
