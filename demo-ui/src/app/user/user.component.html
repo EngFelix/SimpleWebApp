@@ -1,4 +1,5 @@
 <p>{{ 'user.table.title' | translate }}</p>
+<loading></loading>
 <ng-container *ngIf="(users$ | async) as users">
   <data-table [table-columns]="userColumns" [table-data]="users" (table-selected)="SelectUser($event)"></data-table>
   <div class="form-group">

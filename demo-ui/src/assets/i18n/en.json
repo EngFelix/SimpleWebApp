@@ -13,7 +13,11 @@
   },
   "user": {
     "table": {
-      "title": "User Overview"
+      "title": "User Overview",
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "birthDate": "Date of Birth",
+      "edit": "Edit"
     },
     "form": {
       "title": {
