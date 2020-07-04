@@ -24,7 +24,6 @@ public class UserRestController {
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/api/users")
     public ResponseEntity<List<User>> getAllUsers() {
-        logger.info("Someone is accessing the /api/users endpoint!!");
         return ResponseEntity.ok(userService.getAllUsers());
     }
 

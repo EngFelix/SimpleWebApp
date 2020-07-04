@@ -23,7 +23,9 @@
         "placeholder": "Vornamen eingeben",
         "help": "Bitte hier den Vornamen eingeben",
         "error": {
-          "required": "Vorname ist ein Pflichtfeld"
+          "required": "Vorname ist ein Pflichtfeld",
+          "minLength": "Vorname muss mindestens {{minLength}} Zeichen lang sein",
+          "pattern": "Vorname enthält ungültige Zeichen"
         }
       },
       "lastName": {
@@ -31,9 +33,10 @@
         "placeholder": "Nachnamen eingeben",
         "help": "Bitte hier den Nachnamen eingeben",
         "error": {
-          "required": "Nachname ist ein Pflichtfeld"
+          "required": "Nachname ist ein Pflichtfeld",
+          "minLength": "Nachname muss mindestens {{minLength}} Zeichen lang sein",
+          "pattern": "Nachname enthält ungültige Zeichen"
         }
-
       },
       "email": {
         "label": "E-Mail",

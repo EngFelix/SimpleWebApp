@@ -23,7 +23,9 @@
         "placeholder": "Enter First Name",
         "help": "Please enter the first name",
         "error": {
-          "required": "First Name is mandatory"
+          "required": "First Name is mandatory",
+          "minLength": "First Name needs to be at least {{minLength}} characters long",
+          "pattern": "First Name contains invalid characters"
         }
       },
       "lastName": {
@@ -31,7 +33,9 @@
         "placeholder": "Enter Last Name",
         "help": "Please enter the last name",
         "error": {
-          "required": "Last Name is mandatory"
+          "required": "Last Name is mandatory",
+          "minLength": "Last Name needs to be at least {{minLength}} characters long",
+          "pattern": "Last Name contains invalid characters"
         }
       },
       "email": {

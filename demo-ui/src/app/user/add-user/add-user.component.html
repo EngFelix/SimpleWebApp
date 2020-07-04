@@ -7,24 +7,44 @@
 <div class="modal-body">
   <form [formGroup]="userForm" (ngSubmit)="saveUser(userForm.value)">
     <div class="form-group">
-      <label for="firstName">{{ 'user.form.firstName.label' | translate }}</label>
-      <input type="text" class="form-control" id="firstName" formControlName="firstName" required aria-describedby="firstNameHelp" placeholder="{{'user.form.firstName.placeholder' | translate}}">
+      <label for="firstName" translate>user.form.firstName.label</label>
+      <input type="text" [ngClass]="{'is-invalid': showError(firstName) }" class="form-control" id="firstName"
+             formControlName="firstName" required aria-describedby="firstNameHelp"
+             placeholder="{{'user.form.firstName.placeholder' | translate}}">
       <small id="firstNameHelp" class="form-text text-muted">{{'user.form.firstName.help' | translate}}</small>
+      <div class="invalid-feedback" *ngIf="showError(firstName)">
+        <div *ngIf="firstName.errors?.required" translate>user.form.firstName.error.required</div>
+        <div *ngIf="firstName.errors?.pattern" translate>user.form.firstName.error.pattern</div>
+        <div *ngIf="firstName.errors?.minlength" translate [translateParams]="{minLength: nameMinLength}">
+          user.form.firstName.error.minLength
+        </div>
+      </div>
     </div>
     <div class="form-group">
-      <label for="lastName">{{ 'user.form.lastName.label' | translate }}</label>
-      <input type="text" class="form-control" id="lastName" formControlName="lastName" required aria-describedby="lastNameHelp" placeholder="{{'user.form.lastName.placeholder' | translate}}">
+      <label for="lastName" translate>user.form.lastName.label</label>
+      <input type="text" [ngClass]="{'is-invalid': showError(lastName) }" class="form-control" id="lastName"
+             formControlName="lastName" required
+             aria-describedby="lastNameHelp" placeholder="{{'user.form.lastName.placeholder' | translate}}">
       <small id="lastNameHelp" class="form-text text-muted">{{'user.form.lastName.help' | translate}}</small>
+      <div class="invalid-feedback" *ngIf="lastName.errors && (lastName.dirty || lastName.touched)">
+        <div *ngIf="lastName.errors?.required" translate>user.form.lastName.error.required</div>
+        <div *ngIf="lastName.errors?.pattern" translate>user.form.lastName.error.pattern</div>
+        <div *ngIf="lastName.errors?.minlength" translate [translateParams]="{minLength: nameMinLength}">
+          user.form.lastName.error.minLength
+        </div>
+      </div>
     </div>
     <div class="form-group">
-      <label for="name">{{ 'user.form.birthDate.label' | translate }}</label>
-      <input type="text" class="form-control" id="name" formControlName="birthDate" aria-describedby="birthDateHelp" placeholder="{{'user.form.birthDate.placeholder' | translate}}" bsDatepicker>
+      <label for="birthDate" translate>user.form.birthDate.label</label>
+      <input type="text" class="form-control" id="birthDate" formControlName="birthDate" aria-describedby="birthDateHelp"
+             placeholder="{{'user.form.birthDate.placeholder' | translate}}" bsDatepicker>
       <small id="birthDateHelp" class="form-text text-muted">{{'user.form.birthDate.placeholder' | translate}}</small>
     </div>
   </form>
 </div>
 
 <div class="modal-footer">
-  <button type="submit" [disabled]="!userForm.valid" class="btn btn-primary" (click)="saveUser(userForm.value)">{{buttonText}}</button>
+  <button type="submit" [disabled]="!userForm.valid" class="btn btn-primary"
+          (click)="saveUser(userForm.value)">{{buttonText}}</button>
   <button type="button" class="btn btn-default" (click)="modalRef.hide()">Close</button>
 </div>

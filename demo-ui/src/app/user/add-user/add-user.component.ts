@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {User} from '../../model/user.model';
 import {BsModalRef} from 'ngx-bootstrap/modal';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'modal-content',
@@ -14,6 +14,8 @@ export class AddUserComponent implements OnInit {
   buttonText: string;
 
   userForm: FormGroup;
+  nameMinLength = 2;
+  intNamePattern = /^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u;
 
   constructor(public modalRef: BsModalRef) {
   }
@@ -22,17 +24,35 @@ export class AddUserComponent implements OnInit {
     this.userForm = new FormGroup({
       'firstName': new FormControl(this.userModel.firstName, [
         Validators.required,
-        Validators.minLength(2)
+        Validators.pattern(this.intNamePattern),
+        Validators.minLength(this.nameMinLength)
       ]),
       'lastName': new FormControl(this.userModel.lastName, [
         Validators.required,
-        Validators.minLength(2)
+        Validators.pattern(this.intNamePattern),
+        Validators.minLength(this.nameMinLength)
       ]),
       'birthDate': new FormControl(this.userModel.birthDate)
     });
   }
 
-  get firstName() {return this.userForm.get('firstName'); }
-  get lastName() {return this.userForm.get('lastName'); }
-  get birthDate() {return this.userForm.get('birthDate'); }
+  logErrors() {
+    console.log(this.userForm.errors);
+  }
+
+  get firstName() {
+    return this.userForm.get('firstName');
+  }
+
+  get lastName() {
+    return this.userForm.get('lastName');
+  }
+
+  get birthDate() {
+    return this.userForm.get('birthDate');
+  }
+
+  showError(formControl: AbstractControl): boolean {
+    return formControl.invalid && (formControl.dirty || formControl.touched);
+  }
 }
