@@ -3,3 +3,6 @@ version '1.0-SNAPSHOT'
 
 defaultTasks 'assemble'
 
+task serve {
+    dependsOn(tasks.getByPath('spring-demo-api:bootRun'))
+}
