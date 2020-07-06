@@ -19,7 +19,7 @@ export abstract class UserService {
 
   abstract updateUser(userId: number, userChanges: Partial<IUser>): void;
 
-  abstract createUser(user: IUser): void;
+  abstract createUser(user: IUser, success?: (user: IUser) => void, error?: (err: any) => void): void;
 
   abstract deleteUser(userToDelete: IUser): void;
 }
@@ -49,14 +49,20 @@ export class UserServiceImpl implements UserService {
     this.loadingService.showLoaderUntilComplete(getUsers$).subscribe();
   }
 
-  createUser(user: IUser): void {
+  createUser(user: IUser, success?: (user: IUser) => void, error?: (err: any) => void): void {
     const createUser$ = this.httpClient.post<IUser>(this.apiUrl + '/users', user);
     createUser$.subscribe(
-      data => this._users.next([...this._users.getValue(), data]),
-      error => console.log('UserService: error creating user', error)
+      data => {
+        this._users.next([...this._users.getValue(), data]);
+        success?.call(data);
+      },
+      err => {
+        console.log('UserService: error creating user', err);
+        error?.call(err);
+      }
     );
 
-    this.loadingService.showLoaderUntilComplete(createUser$).subscribe();
+    //this.loadingService.showLoaderUntilComplete(createUser$).subscribe();
   }
 
   updateUser(userId: number, userChanges: Partial<IUser>): void {

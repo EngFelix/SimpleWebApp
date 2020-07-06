@@ -15,17 +15,17 @@ import {SharedModule} from '../shared/shared.module';
 
 @NgModule({
   declarations: [UserComponent, AddUserComponent],
-  imports: [
-    SharedModule,
-    CommonModule,
-    RouterModule.forChild(UserRoutes),
-    HttpClientModule,
-    TranslateModule,
-    ModalModule.forChild(),
-    BsDatepickerModule.forRoot(),
-    ReactiveFormsModule,
-    FormsModule
-  ],
+    imports: [
+        SharedModule,
+        CommonModule,
+        RouterModule.forChild(UserRoutes),
+        HttpClientModule,
+        TranslateModule,
+        ModalModule.forChild(),
+        BsDatepickerModule.forRoot(),
+        ReactiveFormsModule,
+        FormsModule
+    ],
   providers: [{
     provide: UserService,
     useClass: UserServiceImpl

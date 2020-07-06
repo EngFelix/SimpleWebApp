@@ -6,6 +6,13 @@ import {DataTableColumn} from '../shared/ui-components/data-table/data-table.com
 import {BsModalRef, BsModalService} from 'ngx-bootstrap/modal';
 import {AddUserComponent} from './add-user/add-user.component';
 import {TranslateService} from '@ngx-translate/core';
+import {AlertComponent} from 'ngx-bootstrap/alert';
+
+export interface Alert {
+  type: string,
+  msg: string,
+  timeout: number
+}
 
 @Component({
   templateUrl: './user.component.html'
@@ -17,6 +24,7 @@ export class UserComponent implements OnInit {
 
   userColumns: Array<DataTableColumn<User>>;
 
+  alerts: Array<Alert> = new Array<Alert>();
 
   constructor(private userService: UserService,
               private modalService: BsModalService,
@@ -42,12 +50,28 @@ export class UserComponent implements OnInit {
       title: 'Create User',
       buttonText: 'Create',
       saveUser: (user: User) => {
-        this.userService.createUser(user);
-        this.addUserModalRef.hide();
+        this.userService.createUser(user, value => {
+          this.alerts.push({
+            msg: 'user.create.success',
+            type: 'success',
+            timeout: 5000
+          });
+          this.addUserModalRef.hide();
+        }, error => {
+          this.alerts.push({
+            msg: 'user.create.error',
+            type: 'danger',
+            timeout: 5000
+          });
+          this.addUserModalRef.hide();
+        });
       }
     };
-    this.addUserModalRef = this.modalService.show(AddUserComponent, { initialState });
+    this.addUserModalRef = this.modalService.show(AddUserComponent, {initialState});
   }
 
 
+  onAlertClosed(alert: Alert) {
+    this.alerts.splice(this.alerts.indexOf(alert), 1);
+  }
 }

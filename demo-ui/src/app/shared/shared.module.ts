@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { LoadingComponent } from './loading/loading.component';
 import {DataTableComponent} from './ui-components/data-table/data-table.component';
 import {TranslateModule} from '@ngx-translate/core';
+import {AlertModule} from 'ngx-bootstrap/alert';
 
 
 
@@ -10,11 +11,13 @@ import {TranslateModule} from '@ngx-translate/core';
   declarations: [LoadingComponent, DataTableComponent],
   imports: [
     CommonModule,
-    TranslateModule
+    TranslateModule,
+    AlertModule.forRoot()
   ],
   exports: [
     LoadingComponent,
-    DataTableComponent
+    DataTableComponent,
+    AlertModule
   ]
 })
 export class SharedModule { }

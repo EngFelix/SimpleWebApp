@@ -61,6 +61,10 @@
           "format": "Geburtsdatum ist ein Pflichtfeld"
         }
       }
+    },
+    "create": {
+      "success": "Benutzer wurde erfolgreich erstellt!",
+      "error": "Benutzer konnte nicht erstellt werden!"
     }
   }
 }

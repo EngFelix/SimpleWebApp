@@ -19,7 +19,6 @@ export class LoadingService {
     return of(null)
       .pipe(
         tap(() => this.loadingSubject.next(true)),
-        concatMap(() => obs$),
         finalize(() => this.loadingSubject.next(false))
       );
   }

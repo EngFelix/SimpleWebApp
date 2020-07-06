@@ -61,6 +61,10 @@
           "format": "Date of Birth is not formatted properly"
         }
       }
+    },
+    "create": {
+      "success": "Successfully created User!",
+      "error": "Could not create User!"
     }
   }
 }
