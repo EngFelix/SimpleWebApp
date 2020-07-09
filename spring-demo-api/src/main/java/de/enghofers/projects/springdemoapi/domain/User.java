@@ -33,6 +33,9 @@ public class User extends BaseEntity {
 
     @Override
     public String toString() {
-        return super.toString() + ", First Name: " + firstName + ", Last Name: " + lastName + ", Birth Date: " + birthDate.toString();
+        return super.toString() +
+                ", First Name: " + firstName +
+                ", Last Name: " + lastName +
+                (birthDate == null ? "" : (", Birth Date: " + birthDate.toString()));
     }
 }

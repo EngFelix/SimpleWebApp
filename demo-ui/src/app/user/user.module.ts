@@ -11,6 +11,7 @@ import {ModalModule} from 'ngx-bootstrap/modal';
 import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {SharedModule} from '../shared/shared.module';
+import {UserFacade} from '../data/facades/user.facade';
 
 
 @NgModule({
@@ -29,7 +30,7 @@ import {SharedModule} from '../shared/shared.module';
   providers: [{
     provide: UserService,
     useClass: UserServiceImpl
-  }],
+  }, UserFacade],
   bootstrap: [UserComponent]
 })
 export class UserModule {

@@ -1,12 +1,12 @@
 import {Component, OnInit} from '@angular/core';
-import {User} from '../model/user.model';
-import {IUser, UserService} from '../service/user.service';
+import {User} from '../data/models/user.model';
 import {Observable} from 'rxjs';
 import {DataTableColumn} from '../shared/ui-components/data-table/data-table.component';
 import {BsModalRef, BsModalService} from 'ngx-bootstrap/modal';
 import {AddUserComponent} from './add-user/add-user.component';
-import {TranslateService} from '@ngx-translate/core';
 import {AlertComponent} from 'ngx-bootstrap/alert';
+import {UserFacade, UserState} from '../data/facades/user.facade';
+import {FormControl} from '@angular/forms';
 
 export interface Alert {
   type: string,
@@ -18,21 +18,31 @@ export interface Alert {
   templateUrl: './user.component.html'
 })
 export class UserComponent implements OnInit {
-  users$: Observable<Array<IUser>>;
-  userModel: User = new User();
+  users$: Observable<Array<User>>;
+  userModel: User;
   addUserModalRef: BsModalRef;
 
   userColumns: Array<DataTableColumn<User>>;
 
   alerts: Array<Alert> = new Array<Alert>();
 
-  constructor(private userService: UserService,
-              private modalService: BsModalService,
-              private translateService: TranslateService) {
+
+
+
+  searchTerm: FormControl;
+  viewModel$: Observable<UserState> = this.userFacade.viewModel$;
+
+
+  constructor(public userFacade: UserFacade,
+              private modalService: BsModalService) {
   }
 
   ngOnInit(): void {
-    this.users$ = this.userService.users$;
+    const {criteria} = this.userFacade.getStateSnapshot();
+
+    this.searchTerm = this.userFacade.buildSearchTermControl();
+    this.searchTerm.patchValue(criteria, {emitEvent: false});
+
     this.userColumns = [
       {colName: 'Id', colVal: t => t.id.toString()},
       {colName: 'user.table.firstName', colVal: t => t.firstName},
@@ -50,21 +60,21 @@ export class UserComponent implements OnInit {
       title: 'Create User',
       buttonText: 'Create',
       saveUser: (user: User) => {
-        this.userService.createUser(user, value => {
-          this.alerts.push({
-            msg: 'user.create.success',
-            type: 'success',
-            timeout: 5000
-          });
-          this.addUserModalRef.hide();
-        }, error => {
-          this.alerts.push({
-            msg: 'user.create.error',
-            type: 'danger',
-            timeout: 5000
-          });
-          this.addUserModalRef.hide();
-        });
+        // this.userFacade.createUser(user, value => {
+        //   this.alerts.push({
+        //     msg: 'user.create.success',
+        //     type: 'success',
+        //     timeout: 5000
+        //   });
+        //   this.addUserModalRef.hide();
+        // }, error => {
+        //   this.alerts.push({
+        //     msg: 'user.create.error',
+        //     type: 'danger',
+        //     timeout: 5000
+        //   });
+        //   this.addUserModalRef.hide();
+        // });
       }
     };
     this.addUserModalRef = this.modalService.show(AddUserComponent, {initialState});

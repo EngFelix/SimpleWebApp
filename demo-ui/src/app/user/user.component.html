@@ -1,12 +1,20 @@
 <p>{{ 'user.table.title' | translate }}</p>
-<loading></loading>
 <div *ngFor="let alert of alerts">
   <alert [type]="alert.type" [dismissOnTimeout]="alert.timeout" (onClosed)="onAlertClosed(alert)">{{alert.msg | translate}}</alert>
 </div>
-<ng-container *ngIf="(users$ | async) as users">
-  <data-table [table-columns]="userColumns" [table-data]="users" (table-selected)="SelectUser($event)"></data-table>
+<div *ngIf="(viewModel$ | async) as vm">
+  <ul>
+    <li *ngFor="let user of vm.users">
+      {{user.firstName}} {{user.lastName}}
+    </li>
+  </ul>
+  <data-table [table-columns]="userColumns" [table-data]="vm.users" (table-selected)="SelectUser($event)"></data-table>
   <div class="form-group">
     <button type="button" class="btn btn-primary" (click)="openAddUserDialog()">Add User</button>
   </div>
-</ng-container>
+</div>
+
+
+
+
 

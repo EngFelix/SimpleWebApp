@@ -39,7 +39,7 @@ public class SpringDemoApiApplication {
 			for (User usr : userService.getAllUsers()) {
 				log.info(usr.toString());
 			}
-			log.info("");
+			log.info("-------------------------------");
 		};
 	}
 }
