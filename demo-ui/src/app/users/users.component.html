@@ -2,13 +2,8 @@
 <div *ngFor="let alert of alerts">
   <alert [type]="alert.type" [dismissOnTimeout]="alert.timeout" (onClosed)="onAlertClosed(alert)">{{alert.msg | translate}}</alert>
 </div>
-<div *ngIf="(viewModel$ | async) as vm">
-  <ul>
-    <li *ngFor="let user of vm.users">
-      {{user.firstName}} {{user.lastName}}
-    </li>
-  </ul>
-  <data-table [table-columns]="userColumns" [table-data]="vm.users" (table-selected)="SelectUser($event)"></data-table>
+<div *ngIf="(vm$ | async) as vm">
+  <data-table [ngClass]="{'loading': vm.loading}" [table-columns]="userColumns" [table-data]="vm.users" (table-selected)="SelectUser($event)"></data-table>
   <div class="form-group">
     <button type="button" class="btn btn-primary" (click)="openAddUserDialog()">Add User</button>
   </div>

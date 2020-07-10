@@ -1,12 +1,12 @@
 import {Component, OnInit} from '@angular/core';
-import {User} from '../data/models/user.model';
+import {User} from '../models/user.model';
 import {Observable} from 'rxjs';
 import {DataTableColumn} from '../shared/ui-components/data-table/data-table.component';
 import {BsModalRef, BsModalService} from 'ngx-bootstrap/modal';
 import {AddUserComponent} from './add-user/add-user.component';
 import {AlertComponent} from 'ngx-bootstrap/alert';
-import {UserFacade, UserState} from '../data/facades/user.facade';
 import {FormControl} from '@angular/forms';
+import {UsersFacade, UsersViewModel} from '../facades/users.facade';
 
 export interface Alert {
   type: string,
@@ -15,10 +15,10 @@ export interface Alert {
 }
 
 @Component({
-  templateUrl: './user.component.html'
+  templateUrl: './users.component.html'
 })
-export class UserComponent implements OnInit {
-  users$: Observable<Array<User>>;
+export class UsersComponent implements OnInit {
+  //users$: Observable<Array<User>>;
   userModel: User;
   addUserModalRef: BsModalRef;
 
@@ -29,19 +29,21 @@ export class UserComponent implements OnInit {
 
 
 
-  searchTerm: FormControl;
-  viewModel$: Observable<UserState> = this.userFacade.viewModel$;
+  //searchTerm: FormControl;
+  vm$: Observable<UsersViewModel> = this.userFacade.vm$;
 
 
-  constructor(public userFacade: UserFacade,
+
+  constructor(public userFacade: UsersFacade,
               private modalService: BsModalService) {
+    this.userFacade.loadAll();
   }
 
   ngOnInit(): void {
-    const {criteria} = this.userFacade.getStateSnapshot();
+    // const {criteria} = this.userFacade.getStateSnapshot();
 
-    this.searchTerm = this.userFacade.buildSearchTermControl();
-    this.searchTerm.patchValue(criteria, {emitEvent: false});
+    // this.searchTerm = this.userFacade.buildSearchTermControl();
+    // this.searchTerm.patchValue(criteria, {emitEvent: false});
 
     this.userColumns = [
       {colName: 'Id', colVal: t => t.id.toString()},

@@ -4,6 +4,7 @@ import {BehaviorSubject, combineLatest, Observable} from 'rxjs';
 import {debounceTime, distinctUntilChanged, map, observeOn, switchMap, tap} from 'rxjs/operators';
 import {HttpClient} from '@angular/common/http';
 import {FormControl} from '@angular/forms';
+import {IUser} from '../service/user.service';
 
 
 // Facade pattern by @ThomasBurleson url: https://stackblitz.com/edit/facades-with-rxjs-only
@@ -42,7 +43,8 @@ let _state: UserState = {
 };
 
 @Injectable()
-export class UserFacade {
+export class UserFacadeOld {
+  readonly apiUrl = 'http://localhost:8080/api/users';
   private store = new BehaviorSubject<UserState>(_state);
   private state$ = this.store.asObservable();
 
@@ -74,11 +76,7 @@ export class UserFacade {
       switchMap(([criteria, pagination]) => {
         return this.findAllUsers(criteria, pagination);
       })
-    ).subscribe(users => {
-      console.log('received all users');
-      console.log(users);
-      this.updateState({..._state, users, loading: false});
-    });
+    ).subscribe(users => this.updateState({..._state, users, loading: false}));
   }
 
   // Facade API Public methods --------------------------------
@@ -117,10 +115,14 @@ export class UserFacade {
     const url = buildUserUrl(criteria, pagination);
     return this.http.get<User[]>(url);
   }
+
+  private createUser(user: User): Observable<User> {
+    return this.http.post<User>(this.apiUrl, user).pipe();
+  }
 }
 
 function buildUserUrl(criteria: string, pagination: Pagination): string {
-  const URL = 'http://localhost:8080/api/users';
+
   const currentPage = `page=${pagination.currentPage}`;
   const pageSize = `results=${pagination.selectedSize}`;
   const searchFor = `seed=${criteria}`

@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {User} from '../../data/models/user.model';
+import {User} from '../../models/user.model';
 import {BsModalRef} from 'ngx-bootstrap/modal';
 import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
 
