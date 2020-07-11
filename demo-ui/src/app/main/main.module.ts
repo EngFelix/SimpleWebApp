@@ -11,7 +11,10 @@ import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {CountrySelectorComponent} from './country-selector/country-selector.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ActionReducer, MetaReducer, StoreModule} from '@ngrx/store';
-import { EffectsModule } from '@ngrx/effects';
+import {EffectsModule} from '@ngrx/effects';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../../environments/environment';
+import { StoreRouterConnectingModule } from '@ngrx/router-store';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -27,13 +30,14 @@ export function debug(reducer: ActionReducer<any>): ActionReducer<any> {
 }
 
 
-export const metaReducers: MetaReducer[] = [debug]
+export const metaReducers: MetaReducer[] = [debug];
 
 @NgModule({
   declarations: [MasterPageComponent, HomeComponent, NavComponent, CountrySelectorComponent],
   imports: [
     RouterModule.forRoot(MainRoutes),
     BrowserModule,
+    StoreDevtoolsModule.instrument(),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -43,10 +47,13 @@ export const metaReducers: MetaReducer[] = [debug]
     }),
     HttpClientModule,
     BrowserAnimationsModule,
-    StoreModule.forRoot({},{metaReducers}),
-    EffectsModule.forRoot([])
+    StoreModule.forRoot({}), //, {metaReducers}),
+    EffectsModule.forRoot([]),
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
+    StoreRouterConnectingModule.forRoot()
   ],
   providers: [],
   bootstrap: [MasterPageComponent]
 })
-export class MainModule { }
+export class MainModule {
+}

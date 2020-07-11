@@ -1,11 +1,11 @@
 import {Injectable} from '@angular/core';
 import {Store} from '@ngrx/store';
-import {UsersState} from '../store/reducers/users.reducers';
-import {LoadUsers} from '../store/actions/users.actions';
-import {usersQuery} from '../store/selectors/users.selectors';
+import {UserState} from '../reducers/user.reducers';
+import {LoadUsers} from '../actions/user.actions';
 import {combineLatest, Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
-import {User} from '../models/user.model';
+import {User} from '../../models/user.model';
+import {usersQuery} from '../selectors/user.selectors';
 
 export interface UsersViewModel {
   users: User[],
@@ -16,15 +16,15 @@ export interface UsersViewModel {
 }
 
 @Injectable()
-export class UsersFacade {
-  allUsers$:      Observable<User[]>  = this.store.select(usersQuery.getAllUsers);
+export class UserFacade {
+  users$:         Observable<User[]>  = this.store.select(usersQuery.getAllUsers);
   selectedUser$:  Observable<User>    = this.store.select(usersQuery.getSelectedUsers);
   loaded$:        Observable<boolean> = this.store.select(usersQuery.getLoaded);
   loading$:       Observable<boolean> = this.store.select(usersQuery.getLoading);
   error$:         Observable<any>     = this.store.select(usersQuery.getError);
 
   vm$:            Observable<UsersViewModel> =
-    combineLatest([this.allUsers$, this.selectedUser$, this.loaded$, this.loading$, this.error$])
+    combineLatest([this.users$, this.selectedUser$, this.loaded$, this.loading$, this.error$])
       .pipe(
         map(([users, selectedUsers, loaded, loading, error]) => {
           return {users, selectedUsers, loaded, loading, error};
@@ -32,10 +32,15 @@ export class UsersFacade {
       );
 
 
-  constructor(private store: Store<UsersState>) {
+  constructor(private store: Store<UserState>) {
+    this.loadAll();
+    // this.users$.subscribe(users => {
+    //   console.log('received user data in facade');
+    //   console.log(users);
+    // });
   }
 
-  loadAll() {
-    this.store.dispatch(new LoadUsers());
+  private loadAll() {
+    this.store.dispatch(LoadUsers());
   }
 }

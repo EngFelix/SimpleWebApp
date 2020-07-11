@@ -5,18 +5,17 @@ import {UsersRoutes} from './users.routing';
 import {HttpClientModule} from '@angular/common/http';
 import {UsersComponent} from './users.component';
 import {TranslateModule} from '@ngx-translate/core';
-import {UserService, UserServiceImpl} from '../service/user.service';
 import {AddUserComponent} from './add-user/add-user.component';
 import {ModalModule} from 'ngx-bootstrap/modal';
 import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {SharedModule} from '../shared/shared.module';
-import {UserFacadeOld} from '../facades/user.facade.old';
 import {StoreModule} from '@ngrx/store';
-import {reducer} from '../store/reducers/users.reducers';
-import {UsersFacade} from '../facades/users.facade';
+import * as fromUser from '../store/reducers/user.reducers';
+import {UserFacade} from '../store/facades/user.facade';
 import {EffectsModule} from '@ngrx/effects';
-import {UsersEffects} from '../store/effects/users.effects';
+import {UserEffects} from '../store/effects/user.effects';
+import {UsersService, UsersServiceImpl} from '../service/users.service';
 
 @NgModule({
   declarations: [UsersComponent, AddUserComponent],
@@ -30,13 +29,13 @@ import {UsersEffects} from '../store/effects/users.effects';
     BsDatepickerModule.forRoot(),
     ReactiveFormsModule,
     FormsModule,
-    StoreModule.forFeature('users', {reducer}),
-    EffectsModule.forFeature([UsersEffects])
+    StoreModule.forFeature(fromUser.userFeatureKey, fromUser.userReducer),
+    EffectsModule.forFeature([UserEffects])
   ],
   providers: [{
-    provide: UserService,
-    useClass: UserServiceImpl
-  }, UserFacadeOld, UsersFacade],
+    provide: UsersService,
+    useClass: UsersServiceImpl
+  }, UserFacade],
   bootstrap: [UsersComponent]
 })
 export class UsersModule {

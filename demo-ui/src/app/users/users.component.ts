@@ -5,8 +5,7 @@ import {DataTableColumn} from '../shared/ui-components/data-table/data-table.com
 import {BsModalRef, BsModalService} from 'ngx-bootstrap/modal';
 import {AddUserComponent} from './add-user/add-user.component';
 import {AlertComponent} from 'ngx-bootstrap/alert';
-import {FormControl} from '@angular/forms';
-import {UsersFacade, UsersViewModel} from '../facades/users.facade';
+import {UserFacade, UsersViewModel} from '../store/facades/user.facade';
 
 export interface Alert {
   type: string,
@@ -18,25 +17,16 @@ export interface Alert {
   templateUrl: './users.component.html'
 })
 export class UsersComponent implements OnInit {
-  //users$: Observable<Array<User>>;
   userModel: User;
   addUserModalRef: BsModalRef;
-
   userColumns: Array<DataTableColumn<User>>;
-
   alerts: Array<Alert> = new Array<Alert>();
-
-
-
-
-  //searchTerm: FormControl;
   vm$: Observable<UsersViewModel> = this.userFacade.vm$;
 
+  //searchTerm: FormControl;
 
-
-  constructor(public userFacade: UsersFacade,
+  constructor(public userFacade: UserFacade,
               private modalService: BsModalService) {
-    this.userFacade.loadAll();
   }
 
   ngOnInit(): void {
@@ -81,7 +71,6 @@ export class UsersComponent implements OnInit {
     };
     this.addUserModalRef = this.modalService.show(AddUserComponent, {initialState});
   }
-
 
   onAlertClosed(alert: Alert) {
     this.alerts.splice(this.alerts.indexOf(alert), 1);

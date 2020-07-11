@@ -1,10 +1,10 @@
-import {User} from '../models/user.model';
+import {User} from '../../models/user.model';
 import {Injectable} from '@angular/core';
 import {BehaviorSubject, combineLatest, Observable} from 'rxjs';
 import {debounceTime, distinctUntilChanged, map, observeOn, switchMap, tap} from 'rxjs/operators';
 import {HttpClient} from '@angular/common/http';
 import {FormControl} from '@angular/forms';
-import {IUser} from '../service/user.service';
+import {IUser} from '../../service/user.service';
 
 
 // Facade pattern by @ThomasBurleson url: https://stackblitz.com/edit/facades-with-rxjs-only
@@ -42,7 +42,7 @@ let _state: UserState = {
   loading: false
 };
 
-@Injectable()
+//@Injectable()
 export class UserFacadeOld {
   readonly apiUrl = 'http://localhost:8080/api/users';
   private store = new BehaviorSubject<UserState>(_state);

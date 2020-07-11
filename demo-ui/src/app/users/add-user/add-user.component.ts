@@ -3,12 +3,19 @@ import {User} from '../../models/user.model';
 import {BsModalRef} from 'ngx-bootstrap/modal';
 import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
 
+class UserImpl implements User {
+  id: number;
+  firstName: string;
+  lastName: string;
+  birthDate?: Date;
+}
+
 @Component({
   selector: 'modal-content',
   templateUrl: './add-user.component.html'
 })
 export class AddUserComponent implements OnInit {
-  userModel: User ;
+  userModel = new UserImpl();
   close: () => {};
   saveUser: (user: User) => {};
   buttonText: string;
