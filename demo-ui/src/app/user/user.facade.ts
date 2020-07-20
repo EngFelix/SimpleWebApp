@@ -1,11 +1,11 @@
 import {Injectable} from '@angular/core';
 import {Store} from '@ngrx/store';
 import {UserState} from './user.reducers';
-import {LoadUsers} from './user.actions';
+import {loadUsers, addUser} from './store/user.actions';
 import {combineLatest, Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
-import {User} from '../../models/user.model';
-import {usersQuery} from './user.selectors';
+import {User} from './user.model';
+import * as fromSelectors from './store/user.selectors';
 
 export interface UsersViewModel {
   users: User[],
@@ -17,9 +17,9 @@ export interface UsersViewModel {
 
 @Injectable()
 export class UserFacade {
-  users$:         Observable<User[]>  = this.store.select(usersQuery.getAllUsers);
-  selectedUser$:  Observable<User>    = this.store.select(usersQuery.getSelectedUsers);
-  loaded$:        Observable<boolean> = this.store.select(usersQuery.getLoaded);
+  users$:         Observable<User[]>  = this.store.select(fromSelectors.selectUsers);
+  selectedUser$:  Observable<User>    = this.store.select(fromSelectors.selectUser);
+  loaded$:        Observable<boolean> = this.store.select();
   loading$:       Observable<boolean> = this.store.select(usersQuery.getLoading);
   error$:         Observable<any>     = this.store.select(usersQuery.getError);
 
@@ -41,6 +41,10 @@ export class UserFacade {
   }
 
   private loadAll() {
-    this.store.dispatch(LoadUsers());
+    this.store.dispatch(loadUsers({}));
+  }
+
+  createUser(user: User) {
+    this.store.dispatch(addUser({user}))
   }
 }

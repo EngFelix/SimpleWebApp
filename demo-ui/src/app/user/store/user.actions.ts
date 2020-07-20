@@ -1,17 +1,39 @@
 import { createAction, props } from '@ngrx/store';
 import { Update } from '@ngrx/entity';
 
-import { User } from './user.model';
+import { User } from '../user.model';
 
+//load Users
 export const loadUsers = createAction(
-  '[User/API] Load Users', 
+  '[User Facade] Load Users',
+  props<{}>()
+);
+
+export const loadUsersSuccess = createAction(
+  '[User Effect] Load Users Success',
   props<{ users: User[] }>()
 );
 
+export const loadUsersFailure = createAction(
+  '[User Effect] Load Users Failure',
+  props<{ error: any }>()
+);
+
+// Add User
 export const addUser = createAction(
-  '[User/API] Add User',
+  '[User Facade] Add User',
   props<{ user: User }>()
 );
+export const addUserSuccess = createAction(
+  '[User Effect] Add User Success',
+  props<{ user: User }>()
+);
+export const addUserFailure = createAction(
+  '[User Effect] Add User Failure',
+  props<{ error: any }>()
+);
+
+// ------- Boiler plate code below -------
 
 export const upsertUser = createAction(
   '[User/API] Upsert User',

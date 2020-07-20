@@ -1,26 +1,49 @@
-import { Action, createReducer, on } from '@ngrx/store';
-import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
-import { User } from './user.model';
+import {Action, createReducer, on} from '@ngrx/store';
+import {EntityState, EntityAdapter, createEntityAdapter} from '@ngrx/entity';
+import {User} from '../user.model';
 import * as UserActions from './user.actions';
 
 export const usersFeatureKey = 'users';
 
-export interface State extends EntityState<User> {
-  // additional entities state properties
+export interface UserState extends EntityState<User> {
+  error: any;
+  selectedUser: User;
 }
 
 export const adapter: EntityAdapter<User> = createEntityAdapter<User>();
 
-export const initialState: State = adapter.getInitialState({
+export const initialState: UserState = adapter.getInitialState({
   // additional entity state properties
+  error: undefined,
+  selectedUser: undefined
 });
 
 
 export const userReducer = createReducer(
   initialState,
-  on(UserActions.addUser,
+  on(UserActions.loadUsersSuccess,
+    (state, action) => adapter.setAll(action.users, state)
+  ),
+  on(UserActions.loadUsersFailure,
+    (state, action) => {
+      return {
+        ...state,
+        error: action.error
+      };
+    }
+  ),
+  on(UserActions.addUserSuccess,
     (state, action) => adapter.addOne(action.user, state)
   ),
+  on(UserActions.addUserFailure,
+    (state, action) => {
+      return {
+        ...state,
+        error: action.error
+      };
+    }
+  ),
+  // ------------------------ Boilerplate code below ------------------------
   on(UserActions.upsertUser,
     (state, action) => adapter.upsertOne(action.user, state)
   ),
@@ -41,9 +64,6 @@ export const userReducer = createReducer(
   ),
   on(UserActions.deleteUsers,
     (state, action) => adapter.removeMany(action.ids, state)
-  ),
-  on(UserActions.loadUsers,
-    (state, action) => adapter.setAll(action.users, state)
   ),
   on(UserActions.clearUsers,
     state => adapter.removeAll(state)

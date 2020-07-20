@@ -2,10 +2,10 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {HttpClientModule} from '@angular/common/http';
 import {StoreModule} from '@ngrx/store';
-import * as fromUser from './user.reducer';
+import * as fromUser from './store/user.reducer';
 import {UserFacade} from './user.facade';
 import {EffectsModule} from '@ngrx/effects';
-import {UserEffects} from './user.effects';
+import {UserEffects} from './store/user.effects';
 import {UserService, UsersServiceImpl} from './user.service';
 
 @NgModule({
