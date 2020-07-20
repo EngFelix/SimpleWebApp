@@ -9,7 +9,7 @@ import { environment } from '../../environments/environment';
 
 
 export interface AppState {
-  // users: UserState
+
 }
 
 export const reducers: ActionReducerMap<AppState> = {

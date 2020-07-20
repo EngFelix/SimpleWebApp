@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
-import {User} from '../models/user.model';
+import {User} from '../../../models/user.model';
 import {Observable} from 'rxjs';
-import {DataTableColumn} from '../shared/ui-components/data-table/data-table.component';
+import {DataTableColumn} from '../../../shared/ui-components/data-table/data-table.component';
 import {BsModalRef, BsModalService} from 'ngx-bootstrap/modal';
 import {AddUserComponent} from './add-user/add-user.component';
 import {AlertComponent} from 'ngx-bootstrap/alert';
-import {UserFacade, UsersViewModel} from '../store/facades/user.facade';
+import {UserFacade, UsersViewModel} from '../../../user/old/store/user.facade';
 
 export interface Alert {
   type: string,
@@ -14,9 +14,9 @@ export interface Alert {
 }
 
 @Component({
-  templateUrl: './users.component.html'
+  templateUrl: './user-admin-page.component.html'
 })
-export class UsersComponent implements OnInit {
+export class UserAdminPageComponent implements OnInit {
   userModel: User;
   addUserModalRef: BsModalRef;
   userColumns: Array<DataTableColumn<User>>;

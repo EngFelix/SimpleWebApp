@@ -5,7 +5,10 @@
     },
     "nav": {
       "home": "Home",
-      "users": "Users",
+      "admin": {
+        "": "Admin",
+        "users": "Users"
+      },
       "lang": {
         "choose": "Choose Language"
       }

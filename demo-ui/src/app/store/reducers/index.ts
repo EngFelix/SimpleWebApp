@@ -1,9 +1,8 @@
-import {reducer, UserState} from './user.reducers';
-import {ActionReducer, ActionReducerMap} from '@ngrx/store';
-
+import {userReducer, UserState} from '../../user/store/user.reducers';
+import {ActionReducer} from '@ngrx/store';
 
 
 // export const reducers: ActionReducerMap<UserState> = {
 //   users: reducer
 // }
-export const UserReducer: ActionReducer<UserState> = reducer;
+export const UserReducer: ActionReducer<UserState> = userReducer;

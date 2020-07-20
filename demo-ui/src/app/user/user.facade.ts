@@ -1,11 +1,11 @@
 import {Injectable} from '@angular/core';
 import {Store} from '@ngrx/store';
-import {UserState} from '../reducers/user.reducers';
-import {LoadUsers} from '../actions/user.actions';
+import {UserState} from './user.reducers';
+import {LoadUsers} from './user.actions';
 import {combineLatest, Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {User} from '../../models/user.model';
-import {usersQuery} from '../selectors/user.selectors';
+import {usersQuery} from './user.selectors';
 
 export interface UsersViewModel {
   users: User[],

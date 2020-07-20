@@ -9,8 +9,13 @@
       <li class="nav-item" routerLinkActive="active">
         <a class="nav-link" routerLink="/home" translate>main.nav.home</a>
       </li>
-      <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link" routerLink="/users" translate>main.nav.users</a>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" routerLink="/admin" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" translate>
+          main.nav.admin
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" routerLink="/admin/users" translate>main.nav.admin.users</a>
+        </div>
       </li>
     </ul>
     <app-country-selector></app-country-selector>
