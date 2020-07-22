@@ -60,7 +60,7 @@ export class UserAdminPageComponent implements OnInit {
       {colName: 'Id', colVal: t => t.id.toString()},
       {colName: 'user.table.firstName', colVal: t => t.firstName},
       {colName: 'user.table.lastName', colVal: t => t.lastName},
-      {colName: 'user.table.birthDate', colVal: t => t.birthDate?.toString()} // ->TODO: This does not seem to be a date type. Something might be wrong in the rest api
+      {colName: 'user.table.birthDate', colVal: t => t.birthDate?.toDateString()}
     ];
   }
 
@@ -72,7 +72,7 @@ export class UserAdminPageComponent implements OnInit {
     const initialState = {
       title: 'Create User',
       buttonText: 'Create',
-      saveUser$: (user: User) => {
+      saveUser: (user: User) => {
         this.userService.add(user).subscribe(
           value => {
           this.alerts.push({

@@ -6,7 +6,7 @@ import {MasterPageComponent} from './master-page/master-page.component';
 import {RouterModule} from '@angular/router';
 import {MainRoutes} from './main.routing';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
-import {HttpClient, HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from '@angular/common/http';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {CountrySelectorComponent} from './master-page/country-selector/country-selector.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -19,6 +19,7 @@ import {UserModule} from './user/user.module';
 import {DefaultDataServiceConfig, EntityDataModule} from '@ngrx/data';
 import {entityConfig} from './data/entity-metadata';
 import {BsDropdownModule} from 'ngx-bootstrap/dropdown';
+import {JsonDateInterceptor} from './Interceptors/json-date-interceptor';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -36,7 +37,7 @@ export function debug(reducer: ActionReducer<any>): ActionReducer<any> {
 const defaultDataServiceConfig: DefaultDataServiceConfig = {
   root: 'http://localhost:8080/api',
   timeout: 1000
-}
+};
 
 
 // export const metaReducers: MetaReducer[] = [debug];
@@ -59,26 +60,32 @@ const defaultDataServiceConfig: DefaultDataServiceConfig = {
     }),
     BrowserAnimationsModule,
     EffectsModule.forRoot([]),
-    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
+    StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production}),
     StoreRouterConnectingModule.forRoot(),
     UserModule,
     StoreModule.forRoot({}, {
       runtimeChecks: {
         strictStateImmutability: true,
         strictActionImmutability: true,
-        strictActionSerializability: true,
+        strictActionSerializability: false,
         strictActionTypeUniqueness: true,
         strictActionWithinNgZone: true,
-        strictStateSerializability: true
+        strictStateSerializability: false
       }
     }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     EntityDataModule.forRoot(entityConfig)
   ],
-  providers: [{
-    provide: DefaultDataServiceConfig,
-    useValue: defaultDataServiceConfig
-  }],
+  providers: [
+    {
+      provide: DefaultDataServiceConfig,
+      useValue: defaultDataServiceConfig
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: JsonDateInterceptor,
+      multi: true
+    }],
   bootstrap: [MasterPageComponent]
 })
 export class MainModule {

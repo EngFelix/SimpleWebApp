@@ -1,4 +1,4 @@
-package de.enghofers.projects.springdemoapi.web;
+package de.enghofers.projects.springdemoapi.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
