@@ -9,13 +9,13 @@ import { environment } from '../../../environments/environment';
 
 export const adminFeatureKey = 'admin';
 
-export interface State {
+export interface AdminState {
 
 }
 
-export const reducers: ActionReducerMap<State> = {
+export const reducers: ActionReducerMap<AdminState> = {
 
 };
 
 
-export const metaReducers: MetaReducer<State>[] = !environment.production ? [] : [];
+export const metaReducers: MetaReducer<AdminState>[] = !environment.production ? [] : [];

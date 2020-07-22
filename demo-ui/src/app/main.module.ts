@@ -15,10 +15,10 @@ import {EffectsModule} from '@ngrx/effects';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {StoreRouterConnectingModule} from '@ngrx/router-store';
 import {environment} from '../environments/environment';
-import {metaReducers, reducers} from './store';
 import {UserModule} from './user/user.module';
-import {EntityDataModule} from '@ngrx/data';
+import {DefaultDataServiceConfig, EntityDataModule} from '@ngrx/data';
 import {entityConfig} from './data/entity-metadata';
+import {BsDropdownModule} from 'ngx-bootstrap/dropdown';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -33,12 +33,20 @@ export function debug(reducer: ActionReducer<any>): ActionReducer<any> {
   };
 }
 
+const defaultDataServiceConfig: DefaultDataServiceConfig = {
+  root: 'http://localhost:8080/api',
+  timeout: 1000
+}
+
 
 // export const metaReducers: MetaReducer[] = [debug];
 
 @NgModule({
   declarations: [MasterPageComponent, HomeComponent, NavComponent, CountrySelectorComponent],
   imports: [
+    // CollapseModule.forRoot(),
+    BsDropdownModule.forRoot(),
+    HttpClientModule,
     RouterModule.forRoot(MainRoutes),
     BrowserModule,
     StoreDevtoolsModule.instrument(),
@@ -54,8 +62,7 @@ export function debug(reducer: ActionReducer<any>): ActionReducer<any> {
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
     StoreRouterConnectingModule.forRoot(),
     UserModule,
-    StoreModule.forRoot(reducers, {
-      metaReducers,
+    StoreModule.forRoot({}, {
       runtimeChecks: {
         strictStateImmutability: true,
         strictActionImmutability: true,
@@ -68,7 +75,10 @@ export function debug(reducer: ActionReducer<any>): ActionReducer<any> {
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     EntityDataModule.forRoot(entityConfig)
   ],
-  providers: [],
+  providers: [{
+    provide: DefaultDataServiceConfig,
+    useValue: defaultDataServiceConfig
+  }],
   bootstrap: [MasterPageComponent]
 })
 export class MainModule {

@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 import {UserAdminPageComponent} from './user-admin-page/user-admin-page.component';
 import {UserModule} from '../../user/user.module';
 import {TranslateModule} from '@ngx-translate/core';
@@ -8,17 +8,17 @@ import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {RouterModule} from '@angular/router';
 import {SharedModule} from '../../shared/shared.module';
-
+import {AddUserComponent} from './user-admin-page/add-user/add-user.component';
 
 
 @NgModule({
-  declarations: [UserAdminPageComponent],
+  declarations: [UserAdminPageComponent, AddUserComponent],
   imports: [
     CommonModule,
     SharedModule,
     UserModule,
-    TranslateModule,
-    RouterModule.forChild([{path: '', component:UserAdminPageComponent}]),
+    TranslateModule.forChild(),
+    RouterModule.forChild([{path: '', component: UserAdminPageComponent}]),
     ModalModule.forChild(),
     BsDatepickerModule.forRoot(),
     ReactiveFormsModule,
@@ -26,4 +26,5 @@ import {SharedModule} from '../../shared/shared.module';
   ],
   bootstrap: [UserAdminPageComponent]
 })
-export class UserAdminModule { }
+export class UserAdminModule {
+}

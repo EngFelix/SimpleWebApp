@@ -1,32 +1,53 @@
 import {Component, OnInit} from '@angular/core';
-import {User} from '../../../models/user.model';
-import {Observable} from 'rxjs';
+
+import {combineLatest, Observable} from 'rxjs';
 import {DataTableColumn} from '../../../shared/ui-components/data-table/data-table.component';
 import {BsModalRef, BsModalService} from 'ngx-bootstrap/modal';
 import {AddUserComponent} from './add-user/add-user.component';
-import {AlertComponent} from 'ngx-bootstrap/alert';
-import {UserFacade, UsersViewModel} from '../../../user/old/store/user.facade';
+import {map} from 'rxjs/operators';
+import {UserService} from '../../../user/user.service';
+import {User} from '../../../user/user.model';
 
-export interface Alert {
+interface Alert {
   type: string,
   msg: string,
   timeout: number
 }
 
+interface UsersViewModel {
+  users: User[],
+  // selectedUsers: User
+  loaded: boolean,
+  loading: boolean,
+  error: any
+}
+
+
 @Component({
   templateUrl: './user-admin-page.component.html'
 })
 export class UserAdminPageComponent implements OnInit {
+
   userModel: User;
   addUserModalRef: BsModalRef;
   userColumns: Array<DataTableColumn<User>>;
   alerts: Array<Alert> = new Array<Alert>();
-  vm$: Observable<UsersViewModel> = this.userFacade.vm$;
 
   //searchTerm: FormControl;
 
-  constructor(public userFacade: UserFacade,
+  // NGRX Data
+  users$: Observable<User[]>;
+  // selectedUser$:  Observable<User>    = this.userService.;
+  loaded$: Observable<boolean>;
+  loading$: Observable<boolean>;
+  errors$: Observable<any>;
+
+  constructor(public userService: UserService,
               private modalService: BsModalService) {
+    this.users$ = this.userService.entities$;
+    this.loading$ = this.userService.loading$;
+    this.loaded$ = this.userService.loaded$;
+    this.errors$ = this.userService.errors$;
   }
 
   ngOnInit(): void {
@@ -51,22 +72,23 @@ export class UserAdminPageComponent implements OnInit {
     const initialState = {
       title: 'Create User',
       buttonText: 'Create',
-      saveUser: (user: User) => {
-        // this.userFacade.createUser(user, value => {
-        //   this.alerts.push({
-        //     msg: 'user.create.success',
-        //     type: 'success',
-        //     timeout: 5000
-        //   });
-        //   this.addUserModalRef.hide();
-        // }, error => {
-        //   this.alerts.push({
-        //     msg: 'user.create.error',
-        //     type: 'danger',
-        //     timeout: 5000
-        //   });
-        //   this.addUserModalRef.hide();
-        // });
+      saveUser$: (user: User) => {
+        this.userService.add(user).subscribe(
+          value => {
+          this.alerts.push({
+            msg: 'user.create.success',
+            type: 'success',
+            timeout: 5000
+          });
+          this.addUserModalRef.hide();
+        }, error => {
+          this.alerts.push({
+            msg: 'user.create.error',
+            type: 'danger',
+            timeout: 5000
+          });
+          this.addUserModalRef.hide();
+        });
       }
     };
     this.addUserModalRef = this.modalService.show(AddUserComponent, {initialState});

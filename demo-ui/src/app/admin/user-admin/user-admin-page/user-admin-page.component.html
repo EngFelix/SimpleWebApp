@@ -2,12 +2,17 @@
 <div *ngFor="let alert of alerts">
   <alert [type]="alert.type" [dismissOnTimeout]="alert.timeout" (onClosed)="onAlertClosed(alert)">{{alert.msg | translate}}</alert>
 </div>
-<div *ngIf="(vm$ | async) as vm">
+<ng-container *ngIf="
+  {
+  users: users$ | async,
+  loading: loading$ | async
+  } as vm
+">
   <data-table [ngClass]="{'loading': vm.loading}" [table-columns]="userColumns" [table-data]="vm.users" (table-selected)="SelectUser($event)"></data-table>
   <div class="form-group">
     <button type="button" class="btn btn-primary" (click)="openAddUserDialog()">Add User</button>
   </div>
-</div>
+</ng-container>
 
 
 

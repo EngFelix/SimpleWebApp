@@ -1,24 +1,19 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {HttpClientModule} from '@angular/common/http';
-import {StoreModule} from '@ngrx/store';
-import * as fromUser from './store/user.reducer';
-import {UserFacade} from './user.facade';
 import {EffectsModule} from '@ngrx/effects';
-import {UserEffects} from './store/user.effects';
-import {UserService, UsersServiceImpl} from './user.service';
+import {UserService} from './user.service';
+import {EntityDefinitionService} from '@ngrx/data';
+import {entityMetadata} from './entity-metadata';
 
 @NgModule({
   imports: [
     CommonModule,
-    HttpClientModule,
-    StoreModule.forFeature(fromUser.usersFeatureKey, fromUser.userReducer),
-    EffectsModule.forFeature([UserEffects])
+    EffectsModule.forFeature()
   ],
-  providers: [{
-    provide: UserService,
-    useClass: UsersServiceImpl
-  }, UserFacade]
+  providers: [UserService]
 })
 export class UserModule {
+  constructor(eds: EntityDefinitionService) {
+    eds.registerMetadataMap(entityMetadata);
+  }
 }

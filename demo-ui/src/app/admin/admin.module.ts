@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { StoreModule } from '@ngrx/store';
 import * as fromAdmin from './reducers';
-import { UserPageComponent } from './user-page/user-page.component';
 import { AdminPageComponent } from './admin-page/admin-page.component';
 import {RouterModule} from '@angular/router';
 import {AdminRoutes} from './admin.routing';
@@ -10,7 +9,7 @@ import {AdminRoutes} from './admin.routing';
 
 
 @NgModule({
-  declarations: [UserPageComponent, AdminPageComponent],
+  declarations: [AdminPageComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(AdminRoutes),

@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {User} from '../../models/user.model';
 import {BsModalRef} from 'ngx-bootstrap/modal';
 import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
+import {User} from '../../../../user/user.model';
 
 class UserImpl implements User {
   id: number;
