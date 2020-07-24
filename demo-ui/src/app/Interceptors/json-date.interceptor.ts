@@ -7,11 +7,17 @@ import {Injectable} from '@angular/core';
 export class JsonDateInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    if (req.method === 'POST' || req.method === 'PUT') {
+      const body = Object.assign({}, req.body);
+      this.convertDatesToJSON(body);
+      req = req.clone({body});
+      console.log(req);
+    }
     return next.handle(req).pipe(
       map((event: HttpEvent<any>) => {
           if (event instanceof HttpResponse) {
             const body = event.body;
-            this.convert(body);
+            this.convertDatesFromJSON(body);
           }
           return event;
         }
@@ -32,7 +38,7 @@ export class JsonDateInterceptor implements HttpInterceptor {
     return false;
   }
 
-  convert(body: any) {
+  convertDatesFromJSON(body: any) {
     if (body === null || body === undefined || typeof body !== 'object') {
       return body;
     }
@@ -41,7 +47,22 @@ export class JsonDateInterceptor implements HttpInterceptor {
       if (this.isIsoDateString(value)) {
         body[key] = new Date(value);
       } else if (typeof value === 'object') {
-        this.convert(value);
+        this.convertDatesFromJSON(value);
+      }
+    }
+  }
+
+  convertDatesToJSON(body: any) {
+    if (body === null || body === undefined || typeof body !== 'object') {
+      return body;
+    }
+    for (const key of Object.keys(body)) {
+      const value = body[key];
+      if (value instanceof Date) {
+        const isoDate = value.toISOString();
+        body[key] = isoDate.substring(0, isoDate.indexOf('T'));
+      } else if (typeof value === 'object') {
+        this.convertDatesFromJSON(value);
       }
     }
   }

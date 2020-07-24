@@ -1,6 +1,7 @@
-package de.enghofers.projects.springdemoapi.rest;
+package de.enghofers.projects.springdemoapi.rest.controller;
 
 import de.enghofers.projects.springdemoapi.domain.User;
+import de.enghofers.projects.springdemoapi.exceptions.UserNotFoundException;
 import de.enghofers.projects.springdemoapi.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +11,7 @@ import java.util.List;
 
 @RestController()
 @RequestMapping(value = "/api")
+@CrossOrigin(origins = "http://localhost:4200")
 public class UserRestController {
 
     private final UserService userService;
@@ -20,26 +22,28 @@ public class UserRestController {
         this.userService = userService;
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
+
     @GetMapping("/users")
     public ResponseEntity<List<User>> getAllUsers() {
         return ResponseEntity.ok(userService.getAllUsers());
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
-    @PostMapping(value = "/users", consumes = "application/json", produces = "application/json")
+    @GetMapping("/users/{id}")
+    public ResponseEntity<User> getUser(@PathVariable Long id) {
+        return ResponseEntity.ok(userService.getUser(id).orElseThrow(() -> new UserNotFoundException(id)));
+    }
+
+    @PostMapping(value = "/user")
     public ResponseEntity<User> createUser(@RequestBody User user) {
         return ResponseEntity.ok(userService.createOrUpdateUser(user));
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
-    @PutMapping("/users")
+    @PutMapping("/user")
     public ResponseEntity<User> updateUser(@RequestBody User user) {
         return ResponseEntity.ok(userService.createOrUpdateUser(user));
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
-    @DeleteMapping("users/{id}")
+    @DeleteMapping("/users/{id}")
     public void deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
     }

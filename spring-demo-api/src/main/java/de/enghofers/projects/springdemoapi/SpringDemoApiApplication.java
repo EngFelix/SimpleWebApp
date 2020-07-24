@@ -32,14 +32,14 @@ public class SpringDemoApiApplication {
 //			user = userService.createOrUpdateUser(user);
 //			log.info("new User after save");
 //			log.info(user.toString());
-
+//TODO REMOVE
 			// Find Users
-			log.info("Users found with findAll():");
-			log.info("-------------------------------");
-			for (User usr : userService.getAllUsers()) {
-				log.info(usr.toString());
-			}
-			log.info("-------------------------------");
+//			log.info("Users found with findAll():");
+//			log.info("-------------------------------");
+//			for (User usr : userService.getAllUsers()) {
+//				log.info(usr.toString());
+//			}
+//			log.info("-------------------------------");
 		};
 	}
 }
