@@ -3,4 +3,6 @@ export interface User {
   firstName?: string;
   lastName?: string;
   birthDate?: Date;
+  createdAt?: Date;
+  lastModified?: Date;
 }

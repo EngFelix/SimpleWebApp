@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.validation.Valid;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,6 +23,10 @@ public class UserService implements IUserService {
 
     @Override
     public User createOrUpdateUser(@Valid User user) {
+        user.setLastModified(LocalDateTime.now());
+        if (user.getId() == null || !userRepository.existsById(user.getId())) {
+            user.setCreatedAt(LocalDateTime.now());
+        }
         return userRepository.save(user);
     }
 

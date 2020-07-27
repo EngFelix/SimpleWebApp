@@ -25,7 +25,7 @@ public class SpringDemoApiApplication {
 	public CommandLineRunner demo(IUserService userService) {
 		return args -> {
 			// Save Users
-			User user = new User("FirstName", "LastNameTest", LocalDate.of(1992, 10, 21));
+//			User user = new User("FirstName", "LastNameTest", LocalDate.of(1992, 10, 21));
 
 //			log.info("new User");
 //			log.info(user.toString());

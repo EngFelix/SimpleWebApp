@@ -60,12 +60,15 @@ export class UserAdminPageComponent implements OnInit {
       {colName: 'Id', colVal: t => t.id.toString()},
       {colName: 'user.table.firstName', colVal: t => t.firstName},
       {colName: 'user.table.lastName', colVal: t => t.lastName},
-      {colName: 'user.table.birthDate', colVal: t => t.birthDate?.toDateString()}
+      {colName: 'user.table.birthDate', colVal: t => t.birthDate?.toDateString()},
+      {colName: 'user.table.createdAt', colVal: t => t.createdAt?.toLocaleString()},
+      {colName: 'user.table.lastModified', colVal: t => t.lastModified?.toLocaleDateString()},
     ];
   }
 
   SelectUser(_selectedUser: User) {
     this.userModel = _selectedUser;
+    this.userService.delete(_selectedUser);
   }
 
   openAddUserDialog(): void {

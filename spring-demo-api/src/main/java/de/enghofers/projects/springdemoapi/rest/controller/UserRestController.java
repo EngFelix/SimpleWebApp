@@ -43,7 +43,7 @@ public class UserRestController {
         return ResponseEntity.ok(userService.createOrUpdateUser(user));
     }
 
-    @DeleteMapping("/users/{id}")
+    @DeleteMapping("/user/{id}")
     public void deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
     }

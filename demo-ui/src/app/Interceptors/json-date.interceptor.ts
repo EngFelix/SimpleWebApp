@@ -3,13 +3,18 @@ import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {Injectable} from '@angular/core';
 
+enum DateFormat {
+  IsoDate,
+  IsoDateTime
+}
+
 @Injectable()
 export class JsonDateInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     if (req.method === 'POST' || req.method === 'PUT') {
       const body = Object.assign({}, req.body);
-      this.convertDatesToJSON(body);
+      // this.convertDatesToJSON(body);
       req = req.clone({body});
       console.log(req);
     }
@@ -25,17 +30,23 @@ export class JsonDateInterceptor implements HttpInterceptor {
     ); //pipe
   }
 
-  private readonly _isoDateTimeFormat = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d*)?Z$/;
+  private readonly _isoDateTimeFormat = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d*)$/;
   private readonly _isoDateFormat = /^\d{4}-\d{2}-\d{2}$/;
 
-  isIsoDateString(value: any): boolean {
+  isIsoDateString(value: any): DateFormat {
     if (value === null || value === undefined) {
-      return false;
+      return undefined;
     }
     if (typeof value === 'string') {
-      return this._isoDateFormat.test(value) || this._isoDateTimeFormat.test(value);
+      if (this._isoDateFormat.test(value)) {
+        return DateFormat.IsoDate;
+      } else if (this._isoDateTimeFormat.test(value)) {
+        return DateFormat.IsoDateTime;
+      } else {
+        return undefined;
+      }
     }
-    return false;
+    return undefined;
   }
 
   convertDatesFromJSON(body: any) {
@@ -44,7 +55,7 @@ export class JsonDateInterceptor implements HttpInterceptor {
     }
     for (const key of Object.keys(body)) {
       const value = body[key];
-      if (this.isIsoDateString(value)) {
+      if (this.isIsoDateString(value) !== undefined) {
         body[key] = new Date(value);
       } else if (typeof value === 'object') {
         this.convertDatesFromJSON(value);
@@ -52,18 +63,18 @@ export class JsonDateInterceptor implements HttpInterceptor {
     }
   }
 
-  convertDatesToJSON(body: any) {
-    if (body === null || body === undefined || typeof body !== 'object') {
-      return body;
-    }
-    for (const key of Object.keys(body)) {
-      const value = body[key];
-      if (value instanceof Date) {
-        const isoDate = value.toISOString();
-        body[key] = isoDate.substring(0, isoDate.indexOf('T'));
-      } else if (typeof value === 'object') {
-        this.convertDatesFromJSON(value);
-      }
-    }
-  }
+  // convertDatesToJSON(body: any) {
+  //   if (body === null || body === undefined || typeof body !== 'object') {
+  //     return body;
+  //   }
+  //   for (const key of Object.keys(body)) {
+  //     const value = body[key];
+  //     if (value instanceof Date) {
+  //       const isoDate = value.toISOString();
+  //       body[key] = isoDate.substring(0, isoDate.indexOf('T'));
+  //     } else if (typeof value === 'object') {
+  //       this.convertDatesFromJSON(value);
+  //     }
+  //   }
+  // }
 }
