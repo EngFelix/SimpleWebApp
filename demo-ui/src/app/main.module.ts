@@ -20,6 +20,8 @@ import {DefaultDataServiceConfig, EntityDataModule} from '@ngrx/data';
 import {entityConfig} from './data/entity-metadata';
 import {BsDropdownModule} from 'ngx-bootstrap/dropdown';
 import {JsonDateInterceptor} from './Interceptors/json-date.interceptor';
+import { LoginComponent } from './authentication/login/login.component';
+import {AuthenticationModule} from './authentication/authentication.module';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -43,7 +45,7 @@ const defaultDataServiceConfig: DefaultDataServiceConfig = {
 // export const metaReducers: MetaReducer[] = [debug];
 
 @NgModule({
-  declarations: [MasterPageComponent, HomeComponent, NavComponent, CountrySelectorComponent],
+  declarations: [MasterPageComponent, HomeComponent, NavComponent, CountrySelectorComponent, LoginComponent],
   imports: [
     // CollapseModule.forRoot(),
     BsDropdownModule.forRoot(),
@@ -74,7 +76,8 @@ const defaultDataServiceConfig: DefaultDataServiceConfig = {
       }
     }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
-    EntityDataModule.forRoot(entityConfig)
+    EntityDataModule.forRoot(entityConfig),
+    AuthenticationModule
   ],
   providers: [
     {
