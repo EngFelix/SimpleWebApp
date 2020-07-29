@@ -7,6 +7,7 @@ import {AddUserComponent} from './add-user/add-user.component';
 import {map} from 'rxjs/operators';
 import {UserService} from '../../../user/user.service';
 import {User} from '../../../user/user.model';
+import {DataTableCellStringComponent} from '../../../shared/ui-components/data-table/data-table-cell/common/data-table-cell-string.component';
 
 interface Alert {
   type: string,
@@ -57,12 +58,12 @@ export class UserAdminPageComponent implements OnInit {
     // this.searchTerm.patchValue(criteria, {emitEvent: false});
 
     this.userColumns = [
-      {colName: 'Id', colVal: t => t.id.toString()},
-      {colName: 'user.table.firstName', colVal: t => t.firstName},
-      {colName: 'user.table.lastName', colVal: t => t.lastName},
-      {colName: 'user.table.birthDate', colVal: t => t.birthDate?.toDateString()},
-      {colName: 'user.table.createdAt', colVal: t => t.createdAt?.toLocaleString()},
-      {colName: 'user.table.lastModified', colVal: t => t.lastModified?.toLocaleDateString()},
+      {colName: 'Id', cellCreator: {component: DataTableCellStringComponent}},
+      {colName: 'user.table.firstName', cellCreator: {component: DataTableCellStringComponent}},
+      // {colName: 'user.table.lastName', colVal: t => t.lastName},
+      // {colName: 'user.table.birthDate', colVal: t => t.birthDate?.toDateString()},
+      // {colName: 'user.table.createdAt', colVal: t => t.createdAt?.toLocaleString()},
+      // {colName: 'user.table.lastModified', colVal: t => t.lastModified?.toLocaleDateString()},
     ];
   }
 

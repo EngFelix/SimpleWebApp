@@ -4,19 +4,14 @@
       <th scope="col" *ngFor="let col of tableColumns">
         {{col.colName | translate}}
       </th>
-      <th scope="col">
-        Select
-      </th>
     </tr>
 
   </thead>
   <tbody>
     <tr *ngFor="let row of tableData">
       <td *ngFor="let col of tableColumns">
+        <data-table-cell [data]="row"></data-table-cell>
         {{col.colVal.call(null, row)}}
-      </td>
-      <td>
-        <a (click)="SelectTable(row)">Select</a>
       </td>
     </tr>
 

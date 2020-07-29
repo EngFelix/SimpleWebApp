@@ -1,22 +1,20 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, Input, Output, QueryList, ViewChildren} from '@angular/core';
+import {DataTableCell} from './data-table-cell/data-table-cell';
 
 export interface DataTableColumn<T> {
   colName: any;
-  colVal: (t: T) => string | Component;
+  cellCreator: DataTableCell;
 }
 
 @Component({
   selector: 'data-table',
   templateUrl: './data-table.html'
 })
-export class DataTableComponent<T> {
+export class DataTableComponent<T> implements AfterViewInit{
   @Input('table-columns') tableColumns: Array<DataTableColumn<T>>;
   @Input('table-data') tableData: Array<T>;
 
-  @Output('table-selected')
-  eventEmitter: EventEmitter<T> = new EventEmitter<T>();
 
-  SelectTable(_selected: T) {
-    this.eventEmitter.emit(_selected);
+  ngAfterViewInit(): void {
   }
 }
