@@ -5,6 +5,9 @@ export const MainRoutes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'admin',
     loadChildren: () => import('./admin/admin.module').then(module => module.AdminModule) },
-  { path: '', component: HomeComponent }
+  { path: 'time-management',
+    loadChildren: () => import('./time-management/time-management.module').then(module => module.TimeManagementModule) },
+  { path: '', component: HomeComponent },
+  { path: '**', redirectTo: 'home'}
 
 ];
