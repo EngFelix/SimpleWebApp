@@ -6,13 +6,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
+import java.util.Collection;
 
 @Entity(name = "User")
 @Table(name="demo_user")
@@ -50,6 +49,10 @@ public class User extends BaseEntity {
 //    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd hh:mm:ss")
     private LocalDateTime lastModified;
 
+    @Getter
+    @Setter
+    @OneToMany(cascade = CascadeType.ALL)
+    private Collection<TimeEntry> timeEntries;
 
     @Override
     public String toString() {

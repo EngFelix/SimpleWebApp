@@ -1,6 +1,8 @@
 package de.enghofers.projects.springdemoapi;
 
+import de.enghofers.projects.springdemoapi.domain.TimeEntry;
 import de.enghofers.projects.springdemoapi.domain.User;
+import de.enghofers.projects.springdemoapi.repositories.ITimeEntryRepository;
 import de.enghofers.projects.springdemoapi.repositories.IUserRepository;
 import de.enghofers.projects.springdemoapi.services.IUserService;
 import org.slf4j.Logger;
@@ -11,6 +13,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @SpringBootApplication
 public class SpringDemoApiApplication {
@@ -22,8 +25,18 @@ public class SpringDemoApiApplication {
 	}
 
 	@Bean
-	public CommandLineRunner demo(IUserService userService) {
+	public CommandLineRunner demo(IUserService userService, ITimeEntryRepository timeEntryRepository) {
 		return args -> {
+
+
+
+			TimeEntry entry = new TimeEntry(userService.getAllUsers().stream().findFirst().orElse(new User()), LocalDateTime.now(), LocalDateTime.now());
+
+			TimeEntry save = timeEntryRepository.save(entry);
+
+			log.info("saved timeentry");
+			log.info(save.toString());
+
 			// Save Users
 //			User user = new User("FirstName", "LastNameTest", LocalDate.of(1992, 10, 21));
 
