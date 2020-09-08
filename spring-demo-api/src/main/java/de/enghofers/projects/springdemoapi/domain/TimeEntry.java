@@ -14,6 +14,8 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class TimeEntry extends BaseEntity {
 
+    @Getter
+    @Setter
     @ManyToOne()
     private User user;
 

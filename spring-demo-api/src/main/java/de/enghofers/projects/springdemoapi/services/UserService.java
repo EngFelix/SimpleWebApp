@@ -1,47 +1,22 @@
 package de.enghofers.projects.springdemoapi.services;
 
 import de.enghofers.projects.springdemoapi.domain.User;
-import de.enghofers.projects.springdemoapi.exceptions.UserNotFoundException;
-import de.enghofers.projects.springdemoapi.repositories.IUserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import de.enghofers.projects.springdemoapi.dto.UserDto;
 
 import javax.validation.Valid;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-@Service
-public class UserService implements IUserService {
+public interface UserService {
+    UserDto createOrUpdateUser(@Valid UserDto userDto);
 
-    private final IUserRepository userRepository;
+    List<UserDto> getAllUserDtos();
 
-    @Autowired
-    public UserService(IUserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
+    List<User> getAllUsers();
 
-    @Override
-    public User createOrUpdateUser(@Valid User user) {
-        user.setLastModified(LocalDateTime.now());
-        if (user.getId() == null || !userRepository.existsById(user.getId())) {
-            user.setCreatedAt(LocalDateTime.now());
-        }
-        return userRepository.save(user);
-    }
+    void deleteUser(Long id);
 
-    @Override
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
-    }
+    Optional<UserDto> getUserDto(Long id);
 
-    @Override
-    public void deleteUser(Long id) {
-        userRepository.deleteById(id);
-    }
-
-    @Override
-    public Optional<User> getUser(Long id) throws UserNotFoundException{
-        return userRepository.findById(id);
-    }
+    Optional<User> getUser(Long id);
 }

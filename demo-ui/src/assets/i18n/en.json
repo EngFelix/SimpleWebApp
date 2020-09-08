@@ -5,6 +5,7 @@
     },
     "nav": {
       "home": "Home",
+      "timeManagement": "Time Management",
       "admin": {
         "label": "Admin",
         "users": "Users"
@@ -20,6 +21,8 @@
       "firstName": "First Name",
       "lastName": "Last Name",
       "birthDate": "Date of Birth",
+      "createdAt": "Created at",
+      "lastModified": "Last Modified",
       "edit": "Edit"
     },
     "form": {

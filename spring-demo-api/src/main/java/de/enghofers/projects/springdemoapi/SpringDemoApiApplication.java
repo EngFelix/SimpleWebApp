@@ -1,19 +1,13 @@
 package de.enghofers.projects.springdemoapi;
 
-import de.enghofers.projects.springdemoapi.domain.TimeEntry;
-import de.enghofers.projects.springdemoapi.domain.User;
-import de.enghofers.projects.springdemoapi.repositories.ITimeEntryRepository;
-import de.enghofers.projects.springdemoapi.repositories.IUserRepository;
-import de.enghofers.projects.springdemoapi.services.IUserService;
+import de.enghofers.projects.springdemoapi.repositories.TimeEntryRepository;
+import de.enghofers.projects.springdemoapi.services.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @SpringBootApplication
 public class SpringDemoApiApplication {
@@ -25,17 +19,21 @@ public class SpringDemoApiApplication {
 	}
 
 	@Bean
-	public CommandLineRunner demo(IUserService userService, ITimeEntryRepository timeEntryRepository) {
+	public CommandLineRunner demo(UserService userService, TimeEntryRepository timeEntryRepository) {
 		return args -> {
 
 
 
-			TimeEntry entry = new TimeEntry(userService.getAllUsers().stream().findFirst().orElse(new User()), LocalDateTime.now(), LocalDateTime.now());
-
-			TimeEntry save = timeEntryRepository.save(entry);
-
-			log.info("saved timeentry");
-			log.info(save.toString());
+//			TimeEntry entry = new TimeEntry(userService.getAllUsers().stream()
+//					.findFirst()
+//					.orElse(new User()), LocalDateTime.now(), LocalDateTime.now());
+//
+//			TimeEntry save = timeEntryRepository.save(entry);
+//
+//			log.info("saved timeentry");
+//			log.info(save.toString());
+//
+//			userService.getAllUsers().forEach(user -> log.info(user.toString()));
 
 			// Save Users
 //			User user = new User("FirstName", "LastNameTest", LocalDate.of(1992, 10, 21));

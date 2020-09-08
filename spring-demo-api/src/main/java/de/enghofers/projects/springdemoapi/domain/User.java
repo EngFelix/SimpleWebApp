@@ -1,21 +1,18 @@
 package de.enghofers.projects.springdemoapi.domain;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.ZonedDateTime;
-import java.util.Collection;
 
 @Entity(name = "User")
 @Table(name="demo_user")
-@AllArgsConstructor
 @NoArgsConstructor
 public class User extends BaseEntity {
 
@@ -49,10 +46,20 @@ public class User extends BaseEntity {
 //    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd hh:mm:ss")
     private LocalDateTime lastModified;
 
-    @Getter
-    @Setter
-    @OneToMany(cascade = CascadeType.ALL)
-    private Collection<TimeEntry> timeEntries;
+    public User(Long id,
+                String firstName,
+                String lastName,
+                LocalDate birthDate,
+                LocalDateTime createdAt,
+                LocalDateTime lastModified) {
+
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.birthDate = birthDate;
+        this.createdAt = createdAt;
+        this.lastModified = lastModified;
+    }
 
     @Override
     public String toString() {

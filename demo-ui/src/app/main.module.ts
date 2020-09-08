@@ -19,7 +19,7 @@ import {UserModule} from './user/user.module';
 import {DefaultDataServiceConfig, EntityDataModule} from '@ngrx/data';
 import {entityConfig} from './data/entity-metadata';
 import {BsDropdownModule} from 'ngx-bootstrap/dropdown';
-import {JsonDateInterceptor} from './Interceptors/json-date.interceptor';
+import {JsonDateInterceptor} from './interceptors/json-date.interceptor';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
