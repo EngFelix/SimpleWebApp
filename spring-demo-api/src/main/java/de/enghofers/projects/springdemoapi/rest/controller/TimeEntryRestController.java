@@ -35,4 +35,5 @@ public class TimeEntryRestController {
     public ResponseEntity<TimeEntry> getTimeEntry(@RequestParam Long id) {
         return ResponseEntity.ok(timeManagementService.getTimeEntry(id).orElseThrow(() ->new EntityNotFoundException(TimeEntry.class, id)));
     }
+    ERROR FOR TODO COMMENT // TODO : Check deserialization of LocalDate. Create LocalDateDeserializer and register  + ObjectMapper?
 }

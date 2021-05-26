@@ -56,7 +56,9 @@ export class JsonDateInterceptor implements HttpInterceptor {
     for (const key of Object.keys(body)) {
       const value = body[key];
       if (this.isIsoDateString(value) !== undefined) {
+        console.log('converted this string ... ' + body[key]);
         body[key] = new Date(value);
+        console.log('to this date!', body[key]);
       } else if (typeof value === 'object') {
         this.convertDatesFromJSON(value);
       }
