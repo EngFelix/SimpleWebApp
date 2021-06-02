@@ -1,8 +1,8 @@
 package de.enghofers.projects.springdemoapi.rest.controller;
 
 import de.enghofers.projects.springdemoapi.domain.TimeEntry;
-import de.enghofers.projects.springdemoapi.exceptions.EntityNotFoundException;
-import de.enghofers.projects.springdemoapi.services.TimeManagementService;
+import de.enghofers.projects.springdemoapi.exception.EntityNotFoundException;
+import de.enghofers.projects.springdemoapi.service.TimeManagementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,12 +27,12 @@ public class TimeEntryRestController {
     }
 
     @GetMapping("/time-entries/of-user/{id}")
-    public ResponseEntity<Collection<TimeEntry>> getAllTimeEntriesOfUser(@RequestParam Long id) {
+    public ResponseEntity<Collection<TimeEntry>> getAllTimeEntriesOfUser(@PathVariable Long id) {
         return ResponseEntity.ok(timeManagementService.getAllTimeEntriesOfUser(id));
     }
 
     @GetMapping("/time-entries/{id}")
-    public ResponseEntity<TimeEntry> getTimeEntry(@RequestParam Long id) {
+    public ResponseEntity<TimeEntry> getTimeEntry(@PathVariable Long id) {
         return ResponseEntity.ok(timeManagementService.getTimeEntry(id).orElseThrow(() ->new EntityNotFoundException(TimeEntry.class, id)));
     }
 //    ERROR FOR TODO COMMENT // TODO : Check deserialization of LocalDate. Create LocalDateDeserializer and register  + ObjectMapper?

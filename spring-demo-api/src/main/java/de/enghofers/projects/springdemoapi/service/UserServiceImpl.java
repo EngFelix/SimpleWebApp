@@ -1,9 +1,9 @@
-package de.enghofers.projects.springdemoapi.services;
+package de.enghofers.projects.springdemoapi.service;
 
 import de.enghofers.projects.springdemoapi.domain.User;
 import de.enghofers.projects.springdemoapi.dto.UserDto;
-import de.enghofers.projects.springdemoapi.exceptions.EntityNotFoundException;
-import de.enghofers.projects.springdemoapi.repositories.UserRepository;
+import de.enghofers.projects.springdemoapi.exception.EntityNotFoundException;
+import de.enghofers.projects.springdemoapi.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

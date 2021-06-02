@@ -1,7 +1,7 @@
 package de.enghofers.projects.springdemoapi.rest.controller;
 
 import de.enghofers.projects.springdemoapi.dto.UserDto;
-import de.enghofers.projects.springdemoapi.services.UserService;
+import de.enghofers.projects.springdemoapi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -34,7 +34,7 @@ public class UserController {
                 .orElseGet(() -> ResponseEntity.notFound().build());  //404 Not found
     }
 
-    @PostMapping(value = "/user/")
+    @PostMapping("/user/")
     public ResponseEntity<UserDto> createUserDto(@RequestBody UserDto userDto) {
         return ResponseEntity.ok(UserService.createOrUpdateUser(userDto));
     }

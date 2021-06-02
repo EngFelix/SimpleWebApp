@@ -1,7 +1,7 @@
 package de.enghofers.projects.springdemoapi;
 
-import de.enghofers.projects.springdemoapi.repositories.TimeEntryRepository;
-import de.enghofers.projects.springdemoapi.services.UserService;
+import de.enghofers.projects.springdemoapi.repository.TimeEntryRepository;
+import de.enghofers.projects.springdemoapi.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;

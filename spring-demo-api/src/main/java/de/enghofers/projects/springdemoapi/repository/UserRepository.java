@@ -1,4 +1,4 @@
-package de.enghofers.projects.springdemoapi.repositories;
+package de.enghofers.projects.springdemoapi.repository;
 
 import de.enghofers.projects.springdemoapi.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;

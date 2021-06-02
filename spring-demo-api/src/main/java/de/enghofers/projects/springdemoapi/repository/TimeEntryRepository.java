@@ -1,4 +1,4 @@
-package de.enghofers.projects.springdemoapi.repositories;
+package de.enghofers.projects.springdemoapi.repository;
 
 import de.enghofers.projects.springdemoapi.domain.TimeEntry;
 import org.springframework.data.jpa.repository.JpaRepository;

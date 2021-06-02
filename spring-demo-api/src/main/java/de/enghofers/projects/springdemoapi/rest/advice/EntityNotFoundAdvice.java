@@ -1,6 +1,6 @@
 package de.enghofers.projects.springdemoapi.rest.advice;
 
-import de.enghofers.projects.springdemoapi.exceptions.EntityNotFoundException;
+import de.enghofers.projects.springdemoapi.exception.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;

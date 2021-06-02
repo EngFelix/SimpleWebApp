@@ -1,8 +1,8 @@
-package de.enghofers.projects.springdemoapi.services;
+package de.enghofers.projects.springdemoapi.service;
 
 import de.enghofers.projects.springdemoapi.domain.TimeEntry;
-import de.enghofers.projects.springdemoapi.exceptions.EntityNotFoundException;
-import de.enghofers.projects.springdemoapi.repositories.TimeEntryRepository;
+import de.enghofers.projects.springdemoapi.exception.EntityNotFoundException;
+import de.enghofers.projects.springdemoapi.repository.TimeEntryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

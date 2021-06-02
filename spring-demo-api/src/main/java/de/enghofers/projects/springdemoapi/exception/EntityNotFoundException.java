@@ -1,4 +1,4 @@
-package de.enghofers.projects.springdemoapi.exceptions;
+package de.enghofers.projects.springdemoapi.exception;
 
 import de.enghofers.projects.springdemoapi.domain.BaseEntity;
 

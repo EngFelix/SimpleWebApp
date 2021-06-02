@@ -1,25 +1,24 @@
 import {Component, OnInit} from '@angular/core';
 
-import {combineLatest, Observable} from 'rxjs';
+import {Observable} from 'rxjs';
 import {DataTableColumn} from '../../../shared/ui-components/data-table/data-table.component';
 import {BsModalRef, BsModalService} from 'ngx-bootstrap/modal';
 import {AddUserComponent} from './add-user/add-user.component';
-import {map} from 'rxjs/operators';
 import {UserService} from '../../../user/user.service';
 import {User} from '../../../user/user.model';
 
 interface Alert {
-  type: string,
-  msg: string,
-  timeout: number
+  type: string;
+  msg: string;
+  timeout: number;
 }
 
 interface UsersViewModel {
-  users: User[],
+  users: User[];
   // selectedUsers: User
-  loaded: boolean,
-  loading: boolean,
-  error: any
+  loaded: boolean;
+  loading: boolean;
+  error: any;
 }
 
 
@@ -75,26 +74,28 @@ export class UserAdminPageComponent implements OnInit {
     const initialState = {
       title: 'Create User',
       buttonText: 'Create',
-      saveUser: (user: User) => {
-        this.userService.add(user).subscribe(
-          value => {
-          this.alerts.push({
-            msg: 'user.create.success',
-            type: 'success',
-            timeout: 5000
-          });
-          this.addUserModalRef.hide();
-        }, error => {
-          this.alerts.push({
-            msg: 'user.create.error',
-            type: 'danger',
-            timeout: 5000
-          });
-          this.addUserModalRef.hide();
-        });
-      }
+      saveUser: this.getSaveUser.bind(this)
     };
     this.addUserModalRef = this.modalService.show(AddUserComponent, {initialState});
+  }
+
+  private getSaveUser(user: User) {
+    this.userService.add(user).subscribe(
+      value => {
+        this.alerts.push({
+          msg: 'user.create.success',
+          type: 'success',
+          timeout: 5000
+        });
+        this.addUserModalRef.hide();
+      }, error => {
+        this.alerts.push({
+          msg: 'user.create.error',
+          type: 'danger',
+          timeout: 5000
+        });
+        this.addUserModalRef.hide();
+      });
   }
 
   onAlertClosed(alert: Alert) {

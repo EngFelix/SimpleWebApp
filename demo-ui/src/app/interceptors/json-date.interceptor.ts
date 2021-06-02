@@ -30,7 +30,8 @@ export class JsonDateInterceptor implements HttpInterceptor {
     ); //pipe
   }
 
-  private readonly _isoDateTimeFormat = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d*)$/;
+
+  private readonly _isoDateTimeFormat = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d*)?$/;
   private readonly _isoDateFormat = /^\d{4}-\d{2}-\d{2}$/;
 
   isIsoDateString(value: any): DateFormat {

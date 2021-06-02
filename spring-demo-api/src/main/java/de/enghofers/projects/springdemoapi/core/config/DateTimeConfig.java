@@ -1,4 +1,4 @@
-package de.enghofers.projects.springdemoapi.config;
+package de.enghofers.projects.springdemoapi.core.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,7 +10,7 @@ import java.time.format.DateTimeFormatter;
 
 @Configuration
 public class DateTimeConfig {
-
+//2021-05-01T15:29:00.000Z
     @Bean
     public FormattingConversionService conversionService() {
         DefaultFormattingConversionService conversionService =

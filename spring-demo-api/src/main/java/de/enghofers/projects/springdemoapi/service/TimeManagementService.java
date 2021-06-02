@@ -1,4 +1,4 @@
-package de.enghofers.projects.springdemoapi.services;
+package de.enghofers.projects.springdemoapi.service;
 
 import de.enghofers.projects.springdemoapi.domain.TimeEntry;
 
